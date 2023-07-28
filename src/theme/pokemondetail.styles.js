@@ -5,6 +5,36 @@ export const pokemonDetailStyles = StyleSheet.create({
     container: {
         flex: 1,
     },
+    header: {
+        flex: .7,
+        flexDirection: "row",
+        alignItems: 'center'
+    },
+    pokemonImage: {
+        height: 150,
+        width: 150,
+        marginHorizontal: 20,
+    },
+    bannerContainer: {
+        position: 'absolute',
+        start: 0,
+        end: 0,
+        top: 0,
+        alignItems: "center"
+    },
+    bannerText: {
+        width: '300%',
+        fontSize: 150,
+        color: 'rgba(255,255,255,.1)',
+        fontWeight: 'bold',
+        textTransform: 'uppercase',
+        textAlign: 'center'
+    },
+    pokemonSprite: {
+        height: 70,
+        width: 70,
+        marginHorizontal: 20,
+    },
     textName: {
         fontSize: 32,
         color: theme.colors.white,
@@ -21,6 +51,12 @@ export const pokemonDetailStyles = StyleSheet.create({
     typetext: {
         color: theme.colors.white,
         textTransform: 'capitalize',
+    },
+    subTitle: {
+        color: theme.colors.black,
+        fontWeight: 'bold',
+        fontSize: 16,
+        marginVertical: 5
     },
     typeContainer: {
         padding: 5,

@@ -5,7 +5,8 @@ export default {
     background: '#F8F9FA',
     text: '#212529',
     error: '#DC3545',
-    white: '#FFFFFF'
+    white: '#FFFFFF',
+    black:'black'
   },
   typeColors:{
     bug:'#8CB230',
