@@ -22,7 +22,7 @@ const Navigation = () => {
       />
       <Tab.Screen
         name="PokemonDetail"
-        component={AddPokemonScreen}
+        component={PokemonDetailsScreen}
         options={{
           tabBarLabel: 'Buscar',
           tabBarIcon: ({color, size}) => (
@@ -31,10 +31,10 @@ const Navigation = () => {
         }}
       />
       <Tab.Screen
-        name="Agregar"
-        component={PokemonDetailsScreen}
+        name="AddPokemon"
+        component={AddPokemonScreen}
         options={{
-          tabBarLabel: 'Añadir',
+          tabBarLabel: 'Agregar',
           tabBarIcon: ({color, size}) => (
             <TabBarIcon color={color} size={size} icon="user" />
           ),

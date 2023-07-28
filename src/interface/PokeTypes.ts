@@ -1,10 +1,10 @@
 export type PokeInfo = {
   name: string;
   url: string;
+  description: PokeDescription | null;
 };
-
-export type PokeCardProps = {
-  item: PokeInfo[];
+export type PokeDescription = {
+  sprites: {
+    front_default: string;
+  };
 };
-
-export type PokeDescription = {};
