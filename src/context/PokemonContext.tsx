@@ -38,7 +38,7 @@ const PokemonProvider: React.FC = ({children}) => {
     const fetchPokemons = async () => {
       try {
         const response = await fetch(
-          'https://pokeapi.co/api/v2/pokemon?limit=151',
+          'https://pokeapi.co/api/v2/pokemon?limit=5',
         );
         const data = await response.json();
         dispatch({type: 'FETCH_POKEMONS', payload: data.results});

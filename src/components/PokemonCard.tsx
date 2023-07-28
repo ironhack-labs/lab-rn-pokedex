@@ -8,55 +8,79 @@ interface PokemonCardProps {
   onPress: () => void;
 }
 
+const IMAGE_URL =
+  'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/';
+
+function getIdFromURl(url: string) {
+  const splitUrl = url.split('/');
+  return splitUrl[splitUrl.length - 2];
+}
+
 const PokemonCard: React.FC<PokemonCardProps> = ({pokemon, onPress}) => {
-  //console.error('pokemon', pokemon);
+  const id = getIdFromURl(pokemon.url);
+
   return (
-    <TouchableOpacity onPress={onPress}>
-      <View style={styles.card}>
+    <View style={styles.container}>
+      <TouchableOpacity onPress={onPress} style={styles.card}>
+        <View style={styles.infoContainer}>
+          <Text style={styles.pokemonNumber}>#{id}</Text>
+          <Text style={styles.pokemonName}>{pokemon.name}</Text>
+        </View>
+
         <View style={styles.avatarContainer}>
           <Image
             source={{
-              uri: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${35}.png`,
+              uri: `${IMAGE_URL}${id}.png`,
             }}
             style={styles.avatar}
           />
         </View>
-        <Text style={styles.pokemonName}>{pokemon.name}</Text>
-      </View>
-    </TouchableOpacity>
+      </TouchableOpacity>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    padding: 10,
+  },
   card: {
-    width: 150,
-    height: 180,
-    borderRadius: 20,
-    margin: 8,
+    flex: 1,
+    height: 140,
+    flexDirection: 'row',
     backgroundColor: 'white',
-    elevation: 4, // Add shadow for Android
-    shadowColor: 'rgba(0, 0, 0, 0.2)', // Add shadow for iOS
-    shadowOffset: {width: 0, height: 2},
-    shadowOpacity: 1,
-    shadowRadius: 4,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  infoContainer: {
+    padding: 20,
+    flex: 1,
   },
   avatarContainer: {
-    width: 80,
-    height: 80,
-    borderRadius: 40,
-    overflow: 'hidden', // Hide overflowing content (the rounded corners) of the Image
-    marginTop: 16,
-    alignSelf: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   avatar: {
-    width: '100%',
-    height: '100%',
+    width: 120,
+    height: 120,
+  },
+  pokemonNumber: {
+    fontSize: 18,
+    color: '#666',
+    fontWeight: '600',
+    marginBottom: 10,
   },
   pokemonName: {
-    textAlign: 'center',
-    marginTop: 8,
-    fontWeight: 'bold',
-    color: '#000000',
+    fontSize: 26,
+    fontWeight: '600',
+    textTransform: 'capitalize',
+    color: '#666',
   },
 });
 

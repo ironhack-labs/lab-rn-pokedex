@@ -20,7 +20,7 @@ const PokemonList: React.FC<Props> = ({pokemons, onPokemonPress}) => {
       data={pokemons}
       keyExtractor={item => item.name}
       renderItem={({item}) => (
-        <PokemonCard pokemon={item} onPress={onPokemonPress} />
+        <PokemonCard pokemon={{item}} onPress={onPokemonPress} />
       )}
     />
   );
