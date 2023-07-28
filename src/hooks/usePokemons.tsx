@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { AppContext } from "../navigation/context";
 
-const usePokemons = () => {
+export const usePokemons = () => {
     const {dispatch, pokemons} = useContext(AppContext);
 
     const addPokemons = (pokemons: {name: string, id: number}[]) => {
