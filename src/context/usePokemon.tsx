@@ -1,14 +1,10 @@
 import React, { createContext, useContext, useReducer } from "react";
+import { fetchPokemon } from "../hooks/useFetchPokemon";
+import { PokeInfo } from "../interface/PokeTypes";
 
-export type PokeInfo = {
-    name: string;
-    url: string;
-}
-export type PokeDescription = {
 
-}
 
-type PokeReducerState = {
+export type PokeReducerState = {
     pokeInfo: PokeInfo[]
 }
 
@@ -43,10 +39,10 @@ export const PokeProvider = ({ ...props }) => {
 
     const [{ pokeInfo }, dispatch] = useReducer(PokeReducer, initialPokeState);
 
-    const fetchPoke = () => {
+    const fetchPoke = async () => {
         console.log("poke fetch")
-        //TODO: Fecth pokes
-        dispatch({ type: 'FETCH_POKEMON', payload: [] })
+        const response: PokeInfo[] = await fetchPokemon()
+        dispatch({ type: 'FETCH_POKEMON', payload: response })
     };
 
     const value = { pokeInfo, fetchPoke }

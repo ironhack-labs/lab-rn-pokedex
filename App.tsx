@@ -5,15 +5,18 @@
  * @format
  */
 
-import {NavigationContainer} from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 import React from 'react';
 import Navigation from './src/navigation/Navigation';
+import { PokeProvider } from './src/context/usePokemon';
 
 function App(): JSX.Element {
   return (
-    <NavigationContainer>
-      <Navigation />
-    </NavigationContainer>
+    <PokeProvider>
+      <NavigationContainer>
+        <Navigation />
+      </NavigationContainer>
+    </PokeProvider>
   );
 }
 
