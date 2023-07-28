@@ -26,7 +26,9 @@ export const PokemonProvider = ({children}: {children: ReactNode}) => {
           return {
             ...pokemon,
             id,
-            thumbnail: `https://pokeres.bastionbot.org/images/pokemon/${id}.png`,
+            // thumbnail: `https://pokeres.bastionbot.org/images/pokemon/${id}.png`,
+            // NOTE: this is a patch since femsa VPN blocks the other image domain
+            thumbnail: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`,
           };
         }) as Pokemon[];
       }

@@ -5,6 +5,7 @@ export const pokemonCardStyles = StyleSheet.create({
     flex: 1,
   },
   card: {
+    height: 130,
     backgroundColor: '#333',
     padding: 20,
     position: 'relative',
@@ -26,11 +27,12 @@ export const pokemonCardStyles = StyleSheet.create({
   pokemonNumber: {
     color: '#fff',
     fontSize: 16,
+    marginTop: 5,
     fontWeight: '400',
   },
   pokemonImage: {
-    width: 40,
-    height: 40,
+    width: 80,
+    height: 80,
     resizeMode: 'cover',
     position: 'absolute',
     bottom: 0,
