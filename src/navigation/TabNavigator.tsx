@@ -12,7 +12,7 @@ export type TabNavigatorProps = {
 
 const Tab = createBottomTabNavigator<TabNavigatorProps>();
 
-export default function TabNavigator() {
+export default function TabNavigator() { 
   return (
     <Tab.Navigator>
       <Tab.Screen
