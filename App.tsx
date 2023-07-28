@@ -1,8 +1,13 @@
 import React from 'react';
 import AppNavigator from './navigation/AppNavigator';
+import {PokedexProvider} from './src/context/context';
 
 function App(): JSX.Element {
-  return <AppNavigator />;
+  return (
+    <PokedexProvider>
+      <AppNavigator />
+    </PokedexProvider>
+  );
 }
 
 export default App;
