@@ -1,27 +1,27 @@
-import React from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
-import styles from '../styles';
+import {pokeFormStyles} from '../theme/PokeForm.styles';
 import {Pokemon} from '../types';
 import {useForm} from 'react-hook-form';
-import FormInput from '../components/FormInput';
-import {pokeFormStyles} from '../theme/PokeForm.styles';
 import {useNavigation} from '@react-navigation/native';
 import {usePokemonContext} from '../context/PokemonContext';
+import {View, Text, TouchableOpacity} from 'react-native';
+import FormInput from '../components/FormInput';
+import React from 'react';
 
 const AddPokemonScreen: React.FC = () => {
   const {navigate} = useNavigation();
-  const {control, handleSubmit, formState} = useForm<Pokemon>();
+  const {control, handleSubmit, formState, reset} = useForm<Pokemon>();
   const {errors} = formState;
   const {addPokemon} = usePokemonContext();
 
   const handleAddPokemon = (pokemon: Pokemon) => {
-    addPokemon(pokemon);
+    addPokemon({...pokemon, id: Number(pokemon.id + new Date().getDate())});
+    reset();
     navigate('Home'); // Modifica la llamada a navigation.navigate
   };
 
   return (
     <View style={pokeFormStyles.container}>
-      <Text style={styles.text}>Add a New Pokémon</Text>
+      <Text style={pokeFormStyles.title}>Add a new Pokémon</Text>
       <FormInput<Pokemon>
         control={control}
         controlName="name"
