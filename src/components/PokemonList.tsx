@@ -1,40 +1,42 @@
+// PokemonList.tsx
+
 import React from 'react';
-import {FlatList, TouchableOpacity, Text, StyleSheet} from 'react-native';
+import {FlatList, View} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {usePokemonContext} from '../context/PokemonContext';
-import styles from '../styles';
+import PokemonCard from './PokemonCard';
+import styles from '../theme/stylesList';
 
-type PokemonItemProps = {
+type Pokemon = {
   name: string;
   id: number;
-};
-
-const PokemonItem: React.FC<PokemonItemProps> = ({name, id}) => {
-  const navigation = useNavigation();
-
-  const handlePress = () => {
-    navigation.navigate('PokemonDetail', {pokemonName: name});
-  };
-
-  return (
-    <TouchableOpacity style={styles.pokemonItem} onPress={handlePress}>
-      <Text style={styles.pokemonItemText}>{name}</Text>
-    </TouchableOpacity>
-  );
+  image: string;
 };
 
 type PokemonListProps = {
-  pokemons: PokemonItemProps[];
+  pokemons: Pokemon[];
 };
 
 const PokemonList: React.FC<PokemonListProps> = ({pokemons}) => {
+  const navigation = useNavigation();
+
+  const handlePokemonPress = (pokemonName: string) => {
+    navigation.navigate('PokemonDetail', {pokemonName});
+  };
+
+  const renderPokemonItem = ({item}: {item: Pokemon}) => (
+    <PokemonCard pokemon={item} onPress={() => handlePokemonPress(item.name)} />
+  );
+
   return (
-    <FlatList
-      data={pokemons}
-      renderItem={({item}) => <PokemonItem name={item.name} id={item.id} />}
-      keyExtractor={item => String(item.id)}
-      style={styles.listContainer}
-    />
+    <View style={styles.listContainer}>
+      <FlatList
+        data={pokemons}
+        renderItem={renderPokemonItem}
+        keyExtractor={item => String(item.id)}
+        contentContainerStyle={styles.listContent}
+      />
+    </View>
   );
 };
 

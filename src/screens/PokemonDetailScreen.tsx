@@ -3,7 +3,7 @@ import {View, Text, Image, StyleSheet} from 'react-native';
 import {RouteProp, useRoute} from '@react-navigation/native';
 import useFetch from '../hooks/useFetch';
 import {usePokemonContext} from '../context/PokemonContext';
-import styles from '../styles';
+import styles from '../theme/styles';
 
 type RootStackParamList = {
   PokemonDetail: {pokemonName: string};
