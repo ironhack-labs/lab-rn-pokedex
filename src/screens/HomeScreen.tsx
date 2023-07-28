@@ -1,7 +1,7 @@
 import {FlatList, SafeAreaView, ScrollView, Text} from 'react-native';
 import React, {useEffect} from 'react';
 import {usePokeContextProvider} from '../context/usePokemon';
-import {PokeInfo} from '../interface/PokeTypes';
+import PokemonInfoCard from '../components/PokemonInfoCard';
 
 const HomeScreen = () => {
   const {pokeInfo, fetchPoke} = usePokeContextProvider();
@@ -16,7 +16,7 @@ const HomeScreen = () => {
       {pokeInfo && (
         <FlatList
           data={pokeInfo}
-          renderItem={({item}) => <Text>{item.name}</Text>}
+          renderItem={({item}) => <PokemonInfoCard item={item} />}
           keyExtractor={item => item.name}
         />
       )}
