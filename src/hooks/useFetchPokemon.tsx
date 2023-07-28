@@ -30,7 +30,6 @@ export async function fetchPokemonDescription(url: string) {
                 }
             }
         );
-
         return data;
     } catch (error) {
         return null;

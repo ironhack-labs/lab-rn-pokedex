@@ -1,5 +1,4 @@
 import React from "react";
-import { PokeInfo } from "../interface/PokeTypes";
 import { FlatList } from "react-native";
 import PokemonCard from "./PokemonCard";
 import { PokemonListInterface } from "../interface/PokemonListInterface";

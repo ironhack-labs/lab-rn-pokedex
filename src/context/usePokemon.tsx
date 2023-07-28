@@ -28,7 +28,6 @@ const PokeContext = createContext<PokemonState>(initialPokeState);
 const PokeReducer = (state: PokeReducerState, action: Action): PokeReducerState => {
     switch (action.type) {
         case 'FETCH_POKEMON':
-            console.log('fetch?')
             return { ...state, pokeInfo: action.payload }
         default:
             return state;
@@ -40,13 +39,13 @@ export const PokeProvider = ({ ...props }) => {
     const [{ pokeInfo }, dispatch] = useReducer(PokeReducer, initialPokeState);
 
     const fetchPoke = async () => {
-        console.log("poke fetch")
         const response: PokeInfo[] = await fetchPokemon()
-        let auxPokeArray: PokeInfo[]
-        response.map(async (poke)=>{
-            auxPokeArray.push({name: poke.name, url: poke.url, description: await fetchPokemonDescription(poke.url)})
-        })
-        dispatch({ type: 'FETCH_POKEMON', payload: response })
+        let auxPokeArray: PokeInfo[] = []
+        for (let item of response) {
+            const description = await fetchPokemonDescription(item.url)
+            auxPokeArray.push({ name: item.name, url: item.url, description: description })
+        }
+        dispatch({ type: 'FETCH_POKEMON', payload: auxPokeArray })
     };
 
     const value = { pokeInfo, fetchPoke }

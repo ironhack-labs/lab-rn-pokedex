@@ -13,7 +13,7 @@ const HomeScreen = () => {
 
   return (
     <SafeAreaView>
-      <PokemonList pokelist={pokeInfo}/>
+      <PokemonList pokelist={pokeInfo} />
     </SafeAreaView>
   );
 };
