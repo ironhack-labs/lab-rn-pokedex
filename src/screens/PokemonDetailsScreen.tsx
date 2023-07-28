@@ -4,7 +4,7 @@ import React from 'react';
 const PokemonDetailsScreen = () => {
   return (
     <SafeAreaView>
-      <Text>PokemonDetailsScreen</Text>
+      <Text>Details Screen</Text>
     </SafeAreaView>
   );
 };

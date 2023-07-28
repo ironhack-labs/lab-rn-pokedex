@@ -24,7 +24,7 @@ const Navigation = () => {
         name="PokemonDetail"
         component={AddPokemonScreen}
         options={{
-          tabBarLabel: 'Detalles',
+          tabBarLabel: 'Buscar',
           tabBarIcon: ({color, size}) => (
             <TabBarIcon color={color} size={size} icon="search" />
           ),
@@ -34,7 +34,7 @@ const Navigation = () => {
         name="Agregar"
         component={PokemonDetailsScreen}
         options={{
-          tabBarLabel: 'Inicio',
+          tabBarLabel: 'Añadir',
           tabBarIcon: ({color, size}) => (
             <TabBarIcon color={color} size={size} icon="user" />
           ),
