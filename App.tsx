@@ -1,22 +1,14 @@
+import 'react-native-gesture-handler';
+import {NavigationContainer} from '@react-navigation/native';
 import React from 'react';
-import { SafeAreaView, StatusBar, StyleSheet, View } from 'react-native';
-import PokemonList from './src/components/PokemonList';
-const data = require('./data.json');
+import TabNavigator from './src/navigation/TabNavigator';
 
 function App(): JSX.Element {
   return (
-    <SafeAreaView style={styles.container}>
-      <View>
-        <PokemonList data={data.results} />
-      </View>
-    </SafeAreaView>
+      <NavigationContainer>
+        <TabNavigator />
+      </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
 
 export default App;
