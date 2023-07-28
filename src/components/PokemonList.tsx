@@ -2,7 +2,7 @@ import React from 'react';
 import {FlatList, TouchableOpacity, Text, StyleSheet} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {usePokemonContext} from '../context/PokemonContext';
-import styles from '../styles';
+import styles from '../theme/styles';
 
 type PokemonItemProps = {
   name: string;

@@ -2,7 +2,7 @@ import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {usePokemonContext} from '../context/PokemonContext';
 import PokemonList from '../components/PokemonList';
-import styles from '../styles';
+import styles from '../theme/styles';
 
 const HomeScreen: React.FC = () => {
   const {state} = usePokemonContext();
