@@ -5,7 +5,8 @@ export type Pokemon = {
   name: string;
   url: string;
   thumbnail: string;
-} & Partial<PokemonDetails>;
+  detail?: PokemonDetails;
+};
 
 export type GetPokemonResponse = {
   results: Pick<Pokemon, 'name' | 'url'>[];

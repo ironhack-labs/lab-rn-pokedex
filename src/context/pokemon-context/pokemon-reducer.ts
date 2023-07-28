@@ -52,7 +52,7 @@ export const pokemonReducer = (
           if (pokemon.id === pokemonDetails.id) {
             return {
               ...pokemon,
-              ...pokemonDetails,
+              detail: pokemonDetails,
             };
           }
           return pokemon;
