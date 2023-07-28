@@ -14,13 +14,8 @@ const Navigation = () => {
                 <Stack.Screen name="Home" component={homeScreen} />
                 <Stack.Screen name="AddPokemon" component={addPokemonScreen} />
                 <Stack.Screen name="pokemonDetails" component={pokemonDetailsScreen} />
-
             </Stack.Navigator>
         </NavigationContainer>
-
-
-
-
     );
 };
 

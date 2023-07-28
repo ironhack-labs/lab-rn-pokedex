@@ -10,12 +10,11 @@ import {
   } from 'react-native';
   
 
-const pokemonDetailsScreen =()=>{
-    return(
+const pokemonDetailsScreen =({ route })=>{
+    const { pokemonName } = route.params;
 
-
-        <Text >App.tsx</Text> 
-
+    return (
+      <Text>{`Detalles del Pokémon: ${pokemonName}`}</Text>
     );
 };
 
