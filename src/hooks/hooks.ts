@@ -12,9 +12,9 @@ export const useFetch = () => {
     const fetchData = async () => {
       try {
         const response = await instance.get('pokemon?limit=151');
-        dispatch(response.data.results);
+        dispatch({type: 'ADD_POKEMONS', payload: response.data.results});
       } catch (error) {
-        console.log(error);
+        throw new Error('Error when consulting list of pokemons!');
       }
     };
     fetchData();

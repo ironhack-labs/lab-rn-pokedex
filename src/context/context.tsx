@@ -19,14 +19,12 @@ const initialState: PokedexState = {
 };
 
 const pokedexReducer = (state: PokedexState, action: Action): PokedexState => {
-  console.log('aquí los pokemons', state, action);
   switch (action.type) {
     case 'ADD_POKEMONS':
       return {
         ...state,
         Pokemons: action.payload,
       };
-  
     default:
       break;
   }
