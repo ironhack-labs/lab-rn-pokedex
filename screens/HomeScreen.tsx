@@ -5,25 +5,25 @@ import {Pokemon, useFetch} from '../hooks/useFetch';
 type Props = {};
 
 export const HomeScreen: React.FC<void> = (props: Props) => {
-  const [pokemonList, setPokemonList] = useState<Pokemon[]>([]);
+  const pokemons = useFetch();
+  console.log(pokemons);
+  // useEffect(() => {
+  //   async function getPokemons() {
+  //     const data = await useFetch();
+  //   }
 
-  useEffect(() => {
-    async function getPokemons() {
-      const data = await useFetch();
-    }
-
-    getPokemons();
-  }, []);
+  //   getPokemons();
+  // }, []);
 
   return (
     <SafeAreaView style={{flex: 1}}>
-      <Text>Pokemons in List: {pokemonList?.length}</Text>
+      {/* <Text>Pokemons in List: {pokemonList?.length}</Text>
 
       <FlatList
         data={pokemonList}
         contentContainerStyle={{flex: 1}}
         renderItem={({item}) => <Text>{item.name}</Text>}
-      />
+      /> */}
     </SafeAreaView>
   );
 };
