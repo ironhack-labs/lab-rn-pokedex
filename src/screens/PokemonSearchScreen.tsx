@@ -1,28 +1,15 @@
 // src/screens/PokemonSearchScreen.tsx
-import React, {useState, useContext} from 'react';
-import {View, TextInput, Text} from 'react-native';
-import {PokemonContext} from '../context/PokemonContext';
-import useFetch from '../hooks/useFetch';
-import PokemonList from '../components/PokemonList';
+import React, { useState, useContext } from 'react';
+import { View, TextInput, FlatList, Text } from 'react-native';
+import { PokemonContext } from '../context/PokemonContext';
+import PokemonCard from '../components/PokemonCard';
 
 const PokemonSearchScreen: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState<string>('');
-  const {state} = useContext(PokemonContext);
-  const {pokemons} = state;
-  const {data, error} = useFetch('https://pokeapi.co/api/v2/pokemon?limit=151');
+  const { state } = useContext(PokemonContext);
+  const { pokemons } = state;
 
-  if (error) {
-    console.error('Error fetching Pokémon data:', error);
-  }
-
-  // Extract the list of Pokémon names from the data
-  const pokemonNames =
-    data?.results.map((pokemon: {name: string}) =>
-      pokemon.name.toLowerCase(),
-    ) || [];
-
-  // Filter the list of Pokémon based on the search query
-  const filteredPokemons = pokemons.filter(pokemon => {
+  const filteredPokemons = pokemons.filter((pokemon) => {
     const pokemonName = pokemon.name.toLowerCase();
     return pokemonName.includes(searchQuery.toLowerCase());
   });
@@ -38,9 +25,13 @@ const PokemonSearchScreen: React.FC = () => {
         value={searchQuery}
         onChangeText={handleSearch}
         placeholder="Enter Pokémon name"
-        placeholderTextColor="#000000"
+        placeholderTextColor={'#000000'}
       />
-      <PokemonList pokemons={filteredPokemons} onPokemonPress={() => {}} />
+      <FlatList
+        data={filteredPokemons}
+        keyExtractor={(item) => item.name}
+        renderItem={({ item }) => <PokemonCard pokemon={item} onPress={() => {}} />}
+      />
     </View>
   );
 };

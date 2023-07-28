@@ -1,37 +1,63 @@
 // src/components/PokemonCard.tsx
 import React from 'react';
-import { View, TouchableOpacity, Image, Text} from 'react-native';
-import PropTypes from 'prop-types';
+import {View, StyleSheet, Image, Text, TouchableOpacity} from 'react-native';
+import {Pokemon} from '../context/PokemonContext';
 
-interface Pokemon {
-  name: string;
-  url: string;
-}
-
-interface Props {
+interface PokemonCardProps {
   pokemon: Pokemon;
-  onPress: (pokemon: Pokemon) => void;
+  onPress: () => void;
 }
 
-const PokemonCard: React.FC<Props> = ({ pokemon, onPress }) => {
-  const { name, url } = pokemon;
-  const pokemonId = url.split('/').slice(-2, -1)[0];
-  const imageUrl = `https://pokeres.bastionbot.org/images/pokemon/${pokemonId}.png`;
-
+const PokemonCard: React.FC<PokemonCardProps> = ({pokemon, onPress}) => {
+  //console.error('pokemon', pokemon);
   return (
-    <TouchableOpacity onPress={() => onPress(pokemon)}>
-      <View>
-        <Image source={{ uri: imageUrl }} style={{ width: 100, height: 100 }} />
-        <Text style={{color: '#000000'}}>{name}</Text>
-        <Text style={{color: '#000000'}}>{`#${pokemonId}`}</Text>
+    <TouchableOpacity onPress={onPress}>
+      <View style={styles.card}>
+        <View style={styles.avatarContainer}>
+          <Image
+            source={{
+              uri: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${35}.png`,
+            }}
+            style={styles.avatar}
+          />
+        </View>
+        <Text style={styles.pokemonName}>{pokemon.name}</Text>
       </View>
     </TouchableOpacity>
   );
 };
 
-PokemonCard.propTypes = {
-  pokemon: PropTypes.object.isRequired,
-  onPress: PropTypes.func.isRequired,
-};
+const styles = StyleSheet.create({
+  card: {
+    width: 150,
+    height: 180,
+    borderRadius: 20,
+    margin: 8,
+    backgroundColor: 'white',
+    elevation: 4, // Add shadow for Android
+    shadowColor: 'rgba(0, 0, 0, 0.2)', // Add shadow for iOS
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 1,
+    shadowRadius: 4,
+  },
+  avatarContainer: {
+    width: 80,
+    height: 80,
+    borderRadius: 40,
+    overflow: 'hidden', // Hide overflowing content (the rounded corners) of the Image
+    marginTop: 16,
+    alignSelf: 'center',
+  },
+  avatar: {
+    width: '100%',
+    height: '100%',
+  },
+  pokemonName: {
+    textAlign: 'center',
+    marginTop: 8,
+    fontWeight: 'bold',
+    color: '#000000',
+  },
+});
 
 export default PokemonCard;
