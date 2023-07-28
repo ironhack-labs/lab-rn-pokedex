@@ -6,14 +6,7 @@ import React, {
   ReactNode,
 } from 'react';
 import useFetch from '../hooks/useFetch';
-
-type Pokemon = {
-  name: string;
-  id: number;
-  image: string;
-  type: string;
-  abilities: string[];
-};
+import {Pokemon} from '../types';
 
 type Action =
   | {type: 'SET_POKEMON_LIST'; payload: Pokemon[]}
@@ -22,17 +15,20 @@ type Action =
 
 type State = {
   pokemonList: Pokemon[];
+  myPokemons: Pokemon[];
   selectedPokemon: Pokemon | null;
 };
 
 type PokemonContextType = {
   state: State;
   dispatch: React.Dispatch<Action>;
+  addPokemon: (pokemon: Pokemon) => void;
 };
 
 const PokemonContext = createContext<PokemonContextType>({
-  state: {pokemonList: [], selectedPokemon: null},
+  state: {pokemonList: [], selectedPokemon: null, myPokemons: []},
   dispatch: () => null,
+  addPokemon: () => {},
 });
 
 const pokemonReducer = (state: State, action: Action): State => {
@@ -40,7 +36,7 @@ const pokemonReducer = (state: State, action: Action): State => {
     case 'SET_POKEMON_LIST':
       return {...state, pokemonList: action.payload};
     case 'ADD_POKEMON':
-      return {...state, pokemonList: [...state.pokemonList, action.payload]};
+      return {...state, myPokemons: [...state.myPokemons, action.payload]};
     case 'SET_SELECTED_POKEMON':
       return {...state, selectedPokemon: action.payload};
     default:
@@ -53,6 +49,7 @@ export const PokemonProvider: React.FC<{children: ReactNode}> = ({
 }) => {
   const [state, dispatch] = useReducer(pokemonReducer, {
     pokemonList: [],
+    myPokemons: [],
     selectedPokemon: null,
   });
 
@@ -76,8 +73,15 @@ export const PokemonProvider: React.FC<{children: ReactNode}> = ({
     }
   }, [data]);
 
+  const addPokemon = (pokemon: Pokemon) => {
+    dispatch({
+      payload: pokemon,
+      type: 'ADD_POKEMON',
+    });
+  };
+
   return (
-    <PokemonContext.Provider value={{state, dispatch}}>
+    <PokemonContext.Provider value={{state, dispatch, addPokemon}}>
       {children}
     </PokemonContext.Provider>
   );
