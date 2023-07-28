@@ -3,7 +3,7 @@ import {pokemonAPI} from '../../api';
 import {useEffect, useState} from 'react';
 
 type UseFetchProps<T> = AxiosRequestConfig<T> & {
-  onSuccess: (response: T) => void;
+  onSuccess?: (response: T) => void;
 };
 
 export const useFetch = <ResponseData = any>({
