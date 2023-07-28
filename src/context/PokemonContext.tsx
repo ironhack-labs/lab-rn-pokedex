@@ -1,0 +1,86 @@
+import React, {
+  createContext,
+  useContext,
+  useReducer,
+  useEffect,
+  ReactNode,
+} from 'react';
+import useFetch from '../hooks/useFetch';
+
+type Pokemon = {
+  name: string;
+  id: number;
+  image: string;
+  type: string;
+  abilities: string[];
+};
+
+type Action =
+  | {type: 'SET_POKEMON_LIST'; payload: Pokemon[]}
+  | {type: 'ADD_POKEMON'; payload: Pokemon}
+  | {type: 'SET_SELECTED_POKEMON'; payload: Pokemon | null};
+
+type State = {
+  pokemonList: Pokemon[];
+  selectedPokemon: Pokemon | null;
+};
+
+type PokemonContextType = {
+  state: State;
+  dispatch: React.Dispatch<Action>;
+};
+
+const PokemonContext = createContext<PokemonContextType>({
+  state: {pokemonList: [], selectedPokemon: null},
+  dispatch: () => null,
+});
+
+const pokemonReducer = (state: State, action: Action): State => {
+  switch (action.type) {
+    case 'SET_POKEMON_LIST':
+      return {...state, pokemonList: action.payload};
+    case 'ADD_POKEMON':
+      return {...state, pokemonList: [...state.pokemonList, action.payload]};
+    case 'SET_SELECTED_POKEMON':
+      return {...state, selectedPokemon: action.payload};
+    default:
+      return state;
+  }
+};
+
+export const PokemonProvider: React.FC<{children: ReactNode}> = ({
+  children,
+}) => {
+  const [state, dispatch] = useReducer(pokemonReducer, {
+    pokemonList: [],
+    selectedPokemon: null,
+  });
+
+  const {data} = useFetch('https://pokeapi.co/api/v2/pokemon?limit=151');
+
+  useEffect(() => {
+    if (data) {
+      const pokemonList: Pokemon[] = data.results.map(
+        (pokemon: any, index: number) => ({
+          name: pokemon.name,
+          id: index + 1,
+          image: `https://pokeres.bastionbot.org/images/pokemon/${
+            index + 1
+          }.png`,
+          type: '',
+          abilities: [],
+        }),
+      );
+
+      dispatch({type: 'SET_POKEMON_LIST', payload: pokemonList});
+    }
+  }, [data]);
+
+  return (
+    <PokemonContext.Provider value={{state, dispatch}}>
+      {children}
+    </PokemonContext.Provider>
+  );
+};
+
+export const usePokemonContext = () => useContext(PokemonContext);
