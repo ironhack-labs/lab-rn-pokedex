@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { PokeInfo } from '../interface/PokeTypes';
+import { Pokemon } from '../interface/PokeDescription';
 
 
 export async function fetchPokemon() {
@@ -23,6 +24,22 @@ export async function fetchPokemon() {
             return []
         }
     }
+}
 
+export async function fetchPokemonDescription(url: string) {
+    try {
+        const { data } = await axios.get<Pokemon>(
+            url,
+            {
+                headers: {
+                    Accept: "application/json"
+                }
+            }
+        );
+        console.log(data.sprites.front_default)
+        return data;
+    } catch (error) {
+        return null;
+    }
 
 }

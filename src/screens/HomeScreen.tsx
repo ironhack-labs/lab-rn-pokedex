@@ -2,6 +2,7 @@ import { FlatList, SafeAreaView, ScrollView, Text } from 'react-native';
 import React, { useEffect } from 'react';
 import { usePokeContextProvider } from '../context/usePokemon';
 import { PokeInfo } from '../interface/PokeTypes';
+import { fetchPokemonDescription } from '../hooks/useFetchPokemon';
 
 const HomeScreen = () => {
 
@@ -9,6 +10,7 @@ const HomeScreen = () => {
 
   useEffect(() => {
     console.log('entor')
+    fetchPokemonDescription("https://pokeapi.co/api/v2/pokemon-form/1/")
     fetchPoke()
   }, [])
 

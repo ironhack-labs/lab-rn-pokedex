@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useReducer } from "react";
-import { fetchPokemon } from "../hooks/useFetchPokemon";
+import { fetchPokemon, fetchPokemonDescription } from "../hooks/useFetchPokemon";
 import { PokeInfo } from "../interface/PokeTypes";
 
 
@@ -42,6 +42,10 @@ export const PokeProvider = ({ ...props }) => {
     const fetchPoke = async () => {
         console.log("poke fetch")
         const response: PokeInfo[] = await fetchPokemon()
+        let auxPokeArray: PokeInfo[]
+        response.map(async (poke)=>{
+            auxPokeArray.push({name: poke.name, url: poke.url, description: await fetchPokemonDescription(poke.url)})
+        })
         dispatch({ type: 'FETCH_POKEMON', payload: response })
     };
 
