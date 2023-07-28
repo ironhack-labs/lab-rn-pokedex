@@ -10,6 +10,8 @@ interface PokemonCardProps {
 
 const IMAGE_URL =
   'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/';
+const DEF_IMG_URL =
+  'https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Pokebola-pokeball-png-0.png/800px-Pokebola-pokeball-png-0.png';
 
 function getIdFromURl(url: string) {
   const splitUrl = url.split('/');
@@ -30,7 +32,7 @@ const PokemonCard: React.FC<PokemonCardProps> = ({pokemon, onPress}) => {
         <View style={styles.avatarContainer}>
           <Image
             source={{
-              uri: `${IMAGE_URL}${id}.png`,
+              uri: `${IMAGE_URL}${id}.png` || DEF_IMG_URL,
             }}
             style={styles.avatar}
           />

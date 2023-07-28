@@ -1,30 +1,53 @@
 // src/screens/PokemonDetailScreen.tsx
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import {View, StyleSheet, Image, Text} from 'react-native';
 import {PokemonContext} from '../context/PokemonContext';
 import {RouteProp, useRoute} from '@react-navigation/native';
 
 import {fakeDetail} from './mock-detail-data';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import useFetch from '../hooks/useFetch';
 
 interface PokemonDetailScreenProps {}
 
 const IMAGE_URL =
   'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/';
+const DEF_IMG_URL =
+  'https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Pokebola-pokeball-png-0.png/800px-Pokebola-pokeball-png-0.png';
 
 const PokemonDetailScreen: React.FC<PokemonDetailScreenProps> = () => {
   const {params} = useRoute<RouteProp<{params: {name: string}}, 'params'>>();
-  const {state} = useContext(PokemonContext);
+  const {state, dispatch} = useContext(PokemonContext);
   const {pokemons} = state;
   const pokemon = pokemons.find(poke => poke.name === params.name);
-  console.error('PokemonDetailScreen', params);
+
+  // Fetch the details of the selected Pokémon
+  const {data, isLoading} = useFetch(
+    `https://pokeapi.co/api/v2/pokemon/${pokemon?.name}`,
+  );
+
+  useEffect(() => {
+    if (data && !isLoading) {
+      // Update the Pokémon data in the context state with the fetched details
+      const updatedPokemon: Pokemon = {
+        ...pokemon!,
+        id: data.id,
+        image: data.sprites.front_default,
+        type: data.types[0].type.name,
+        abilities: data.abilities
+          .map((ability: any) => ability.ability.name)
+          .join(', '),
+      };
+      dispatch({type: 'UPDATE_POKEMON', payload: updatedPokemon});
+    }
+  }, [isLoading]);
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
         <Image
           source={{
-            uri: `${IMAGE_URL}${fakeDetail.id}.png`,
+            uri: DEF_IMG_URL || `${IMAGE_URL}${data?.id}.png`,
           }}
           style={styles.image}
         />
@@ -32,21 +55,18 @@ const PokemonDetailScreen: React.FC<PokemonDetailScreenProps> = () => {
 
       <View style={styles.content}>
         <View>
-          <Text style={styles.name}>
-            #{fakeDetail.id + ' ' + fakeDetail.name}
-          </Text>
-
+          <Text style={styles.name}>#{data?.id + ' ' + data?.name}</Text>
           <View style={styles.dataContainer}>
-            <Text style={styles.dataText}>Hight: {fakeDetail.height}</Text>
+            <Text style={styles.dataText}>Hight: {data?.height}</Text>
             <View style={{width: 10}}></View>
-            <Text style={styles.dataText}>Weight: {fakeDetail.weight}</Text>
+            <Text style={styles.dataText}>Weight: {data?.weight}</Text>
           </View>
         </View>
 
         <View>
           <Text style={styles.titleText}>Types:</Text>
           <View style={styles.typesContainer}>
-            {fakeDetail.types.map(item => (
+            {data?.types.map(item => (
               <View style={[styles.typePill, styles.pill]} key={item.slot}>
                 <Text style={styles.pillText}>{item.type.name}</Text>
               </View>
@@ -55,7 +75,7 @@ const PokemonDetailScreen: React.FC<PokemonDetailScreenProps> = () => {
 
           <Text style={styles.titleText}>Abilities:</Text>
           <View style={styles.typesContainer}>
-            {fakeDetail.abilities.map(item => (
+            {data?.abilities.map(item => (
               <View style={[styles.abilityPill, styles.pill]} key={item.slot}>
                 <Text style={styles.pillText}>{item.ability.name}</Text>
               </View>
@@ -133,3 +153,6 @@ const styles = StyleSheet.create({
 });
 
 export default PokemonDetailScreen;
+function dispatch(arg0: {type: string; payload: Pokemon}) {
+  throw new Error('Function not implemented.');
+}
