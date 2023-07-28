@@ -1,15 +1,15 @@
 import React from "react";
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, Text, Touchable, TouchableOpacity, View } from "react-native";
 import { PokeInfo } from "../interface/PokeTypes";
 
 const PokemonCard: React.FC<PokeInfo> = ({ name, url, description }) => {
     console.log(name)
     console.log(description)
     return (
-    <View style={style.card}>
+    <TouchableOpacity style={style.card}>
         <Text>{name}</Text>
         <Image source={{ uri: description?.sprites.front_default }} style={style.image} />
-    </View>)
+    </TouchableOpacity>)
 }
 
 export default PokemonCard;
