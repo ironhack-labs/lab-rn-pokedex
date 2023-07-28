@@ -1,4 +1,16 @@
-import React, {createContext, useContext, useReducer, Dispatch} from 'react';
+import axios from 'axios';
+import React, {
+  createContext,
+  useContext,
+  useReducer,
+  Dispatch,
+  useState,
+  useEffect,
+} from 'react';
+
+const instance = axios.create({
+  baseURL: 'https://pokeapi.co/api/v2/',
+});
 
 export type Pokemon = {
   id: number;
@@ -45,4 +57,23 @@ export const usePokedex = () => {
     throw new Error('usePokedex debe ser utilizado dentro de PokedexProvider');
   }
   return context;
+};
+
+/** get pokemons custom hook */
+export const useFetch = () => {
+  const [pokemons, setPokemoms] = useState();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await instance.get('pokemon?limit=151');
+        setPokemoms(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  return [pokemons];
 };
