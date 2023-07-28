@@ -10,7 +10,7 @@ type PokemonListProps = {
 
 export const PokemonList = ({pokemons}: PokemonListProps) => (
   <FlatList
-    contentContainerStyle={pokemonListStyles.container}
+    style={pokemonListStyles.container}
     data={pokemons}
     numColumns={2}
     renderItem={({item: pokemon, index}) => (

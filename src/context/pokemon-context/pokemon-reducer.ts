@@ -1,17 +1,19 @@
-import type {Pokemon, PokemonDetails} from '../../models';
+import type {Pokemon, PokemonDetails, CustomPokemon} from '../../models';
 
 export type PokemonState = {
   pokemons: Pokemon[];
+  customPokemons: Pokemon[];
 };
 
 export const initialPokemonState: PokemonState = {
   pokemons: [],
+  customPokemons: [],
 };
 
 export enum POKEMON_TYPES {
   SET_POKEMONS = 'SET_POKEMONS',
-  ADD_POKEMON = 'ADD_POKEMON',
   SET_POKEMON_DETAIL = 'SET_POKEMON_DETAIL',
+  SET_CUSTOM_POKEMON = 'SET_CUSTOM_POKEMON',
 }
 
 type SetPokemonsAction = {
@@ -24,15 +26,15 @@ type SetPokemonDetailAction = {
   payload: {pokemon: PokemonDetails};
 };
 
-type AddPokemonAction = {
-  type: POKEMON_TYPES.ADD_POKEMON;
-  payload: {pokemon: Pokemon};
+type SetCustomPokemonAction = {
+  type: POKEMON_TYPES.SET_CUSTOM_POKEMON;
+  payload: {pokemon: CustomPokemon};
 };
 
 type PokemonTypeActions =
   | SetPokemonsAction
   | SetPokemonDetailAction
-  | AddPokemonAction;
+  | SetCustomPokemonAction;
 
 export const pokemonReducer = (
   state: PokemonState,
@@ -58,11 +60,36 @@ export const pokemonReducer = (
           return pokemon;
         }),
       };
-    case POKEMON_TYPES.ADD_POKEMON:
+    case POKEMON_TYPES.SET_CUSTOM_POKEMON: {
+      const customPokemon = action.payload.pokemon;
+      const defaultThumbnail =
+        'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/0.png';
+
       return {
         ...state,
-        pokemons: [...state.pokemons].concat(action.payload.pokemon),
+        customPokemons: [...state.customPokemons].concat({
+          id: customPokemon.id,
+          name: customPokemon.name,
+          thumbnail: customPokemon.thumbnail || defaultThumbnail,
+          detail: {
+            abilities: [
+              {
+                ability: {
+                  name: customPokemon.ability,
+                },
+              },
+            ],
+            types: [
+              {
+                type: {
+                  name: customPokemon.type,
+                },
+              },
+            ],
+          },
+        } as Pokemon),
       };
+    }
     default:
       return state;
   }
