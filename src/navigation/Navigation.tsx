@@ -15,7 +15,7 @@ const Navigation = () => {
         component={HomeScreen}
         options={{
           tabBarLabel: 'Inicio',
-          tabBarIcon: () => <Icon name="tachometer" color="#000" size={20} />,
+          tabBarIcon: () => <Icon name="home" color="#000" size={20} />,
         }}
       />
       <Tab.Screen
