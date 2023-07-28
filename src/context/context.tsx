@@ -1,19 +1,8 @@
-import axios from 'axios';
-import React, {
-  createContext,
-  useContext,
-  useReducer,
-  Dispatch,
-  useState,
-  useEffect,
-} from 'react';
-
-const instance = axios.create({
-  baseURL: 'https://pokeapi.co/api/v2/',
-});
+import React, {createContext, useContext, useReducer, Dispatch} from 'react';
 
 export type Pokemon = {
-  id: number;
+  name: string;
+  url: string;
 };
 
 type PokedexState = {
@@ -22,14 +11,25 @@ type PokedexState = {
 
 type Action =
   | {type: 'ADD_POKEMON'; payload: Pokemon}
-  | {type: 'REMOVE_POKEMON'; payload: Pokemon};
+  | {type: 'REMOVE_POKEMON'; payload: Pokemon}
+  | {type: 'ADD_POKEMONS'; payload: Pokemon[]};
 
 const initialState: PokedexState = {
   Pokemons: [],
 };
 
 const pokedexReducer = (state: PokedexState, action: Action): PokedexState => {
-  console.log(state, action);
+  console.log('aquí los pokemons', state, action);
+  switch (action.type) {
+    case 'ADD_POKEMONS':
+      return {
+        ...state,
+        Pokemons: action.payload,
+      };
+  
+    default:
+      break;
+  }
   return state;
 };
 
@@ -57,23 +57,4 @@ export const usePokedex = () => {
     throw new Error('usePokedex debe ser utilizado dentro de PokedexProvider');
   }
   return context;
-};
-
-/** get pokemons custom hook */
-export const useFetch = () => {
-  const [pokemons, setPokemoms] = useState();
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await instance.get('pokemon?limit=151');
-        setPokemoms(response.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchData();
-  }, []);
-
-  return [pokemons];
 };
