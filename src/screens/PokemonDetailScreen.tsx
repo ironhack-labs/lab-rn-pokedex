@@ -4,7 +4,13 @@ import {View, StyleSheet, Image, Text} from 'react-native';
 import {PokemonContext} from '../context/PokemonContext';
 import {RouteProp, useRoute} from '@react-navigation/native';
 
+import {fakeDetail} from './mock-detail-data';
+import {SafeAreaView} from 'react-native-safe-area-context';
+
 interface PokemonDetailScreenProps {}
+
+const IMAGE_URL =
+  'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/';
 
 const PokemonDetailScreen: React.FC<PokemonDetailScreenProps> = () => {
   const {params} = useRoute<RouteProp<{params: {name: string}}, 'params'>>();
@@ -14,59 +20,115 @@ const PokemonDetailScreen: React.FC<PokemonDetailScreenProps> = () => {
   console.error('PokemonDetailScreen', params);
 
   return (
-    <View style={styles.container}>
-      {pokemon && (
-        <>
-          <View style={styles.card}>
-            <View style={styles.avatarContainer}>
-              <Image
-                source={{
-                  uri: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${39}.png`,
-                }}
-                style={styles.avatar}
-              />
-            </View>
-            <Text style={styles.pokemonName}>{pokemon.name}</Text>
+    <SafeAreaView style={styles.container}>
+      <View style={styles.header}>
+        <Image
+          source={{
+            uri: `${IMAGE_URL}${fakeDetail.id}.png`,
+          }}
+          style={styles.image}
+        />
+      </View>
+
+      <View style={styles.content}>
+        <View>
+          <Text style={styles.name}>
+            #{fakeDetail.id + ' ' + fakeDetail.name}
+          </Text>
+
+          <View style={styles.dataContainer}>
+            <Text style={styles.dataText}>Hight: {fakeDetail.height}</Text>
+            <View style={{width: 10}}></View>
+            <Text style={styles.dataText}>Weight: {fakeDetail.weight}</Text>
           </View>
-          {/* Render other details about the Pokémon here */}
-        </>
-      )}
-    </View>
+        </View>
+
+        <View>
+          <Text style={styles.titleText}>Types:</Text>
+          <View style={styles.typesContainer}>
+            {fakeDetail.types.map(item => (
+              <View style={[styles.typePill, styles.pill]} key={item.slot}>
+                <Text style={styles.pillText}>{item.type.name}</Text>
+              </View>
+            ))}
+          </View>
+
+          <Text style={styles.titleText}>Abilities:</Text>
+          <View style={styles.typesContainer}>
+            {fakeDetail.abilities.map(item => (
+              <View style={[styles.abilityPill, styles.pill]} key={item.slot}>
+                <Text style={styles.pillText}>{item.ability.name}</Text>
+              </View>
+            ))}
+          </View>
+        </View>
+      </View>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16,
-  },
-  card: {
-    alignItems: 'center',
     backgroundColor: 'white',
-    borderRadius: 20,
-    elevation: 4,
-    marginBottom: 16,
-    padding: 16,
-    shadowColor: 'rgba(0, 0, 0, 0.2)',
-    shadowOffset: {width: 0, height: 2},
-    shadowOpacity: 1,
-    shadowRadius: 4,
   },
-  avatarContainer: {
-    width: 120,
-    height: 120,
-    borderRadius: 60,
-    overflow: 'hidden',
-    marginBottom: 16,
+  header: {
+    backgroundColor: 'aliceblue',
+    height: 250,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  avatar: {
-    width: '100%',
-    height: '100%',
+  image: {
+    width: 230,
+    height: 230,
   },
-  pokemonName: {
-    textAlign: 'center',
-    fontWeight: 'bold',
-    color: '#000000',
+  content: {
+    flex: 1,
+    justifyContent: 'space-between',
+    padding: 20,
+  },
+  dataContainer: {
+    flexDirection: 'row',
+    marginTop: 10,
+  },
+  dataText: {
+    color: '#666',
+  },
+  name: {
+    fontSize: 26,
+    fontWeight: '600',
+    textTransform: 'uppercase',
+    color: '#666',
+  },
+
+  typesContainer: {
+    flexDirection: 'row',
+    marginBottom: 10,
+  },
+  pill: {
+    borderRadius: 15,
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    marginRight: 10,
+  },
+
+  typePill: {
+    backgroundColor: 'dodgerblue',
+  },
+
+  abilityPill: {
+    backgroundColor: 'skyblue',
+  },
+
+  pillText: {
+    color: 'white',
+  },
+
+  titleText: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#666',
+    marginBottom: 5,
   },
 });
 

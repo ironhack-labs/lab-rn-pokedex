@@ -6,6 +6,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   Text,
+  View,
 } from 'react-native';
 import {PokemonContext} from '../context/PokemonContext';
 import PokemonCard from '../components/PokemonCard';
@@ -23,25 +24,29 @@ const HomeScreen: React.FC = ({navigation}) => {
   };
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={styles.container}>
       <TouchableOpacity style={styles.addButton} onPress={handleAddPokemon}>
         <Text style={styles.addButtonLabel}>Add Pokémon</Text>
       </TouchableOpacity>
-      <FlatList
-        data={pokemons}
-        keyExtractor={item => item.name}
-        renderItem={({item}) => (
-          <PokemonCard
-            pokemon={item}
-            onPress={() => handlePokemonPress(item.name)}
-          />
-        )}
-      />
+
+      <View style={{paddingHorizontal: 10, marginTop: 10}}>
+        <FlatList
+          data={pokemons}
+          keyExtractor={item => item.name}
+          renderItem={({item}) => (
+            <PokemonCard
+              pokemon={item}
+              onPress={() => handlePokemonPress(item.name)}
+            />
+          )}
+        />
+      </View>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {backgroundColor: 'white', flex: 1},
   addButton: {
     backgroundColor: 'blue',
     borderRadius: 8,

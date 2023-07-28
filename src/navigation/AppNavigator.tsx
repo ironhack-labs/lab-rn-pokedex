@@ -23,7 +23,7 @@ const AppNavigator: React.FC = () => {
   return (
     <PokemonProvider>
       <NavigationContainer>
-        <Tab.Navigator>
+        <Tab.Navigator screenOptions={{headerShown: false}}>
           <Tab.Screen name="Home" component={HomeStack} />
           <Tab.Screen name="Search" component={PokemonSearchScreen} />
         </Tab.Navigator>
