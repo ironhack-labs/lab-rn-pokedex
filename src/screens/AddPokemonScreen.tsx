@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {View, Text, TextInput, Button, StyleSheet} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {usePokemonContext} from '../context/PokemonContext';
-import styles from '../styles';
+import styles from '../theme/styles';
 
 const AddPokemonScreen: React.FC = () => {
   const [pokemonName, setPokemonName] = useState('');
