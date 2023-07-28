@@ -7,6 +7,7 @@ import {PokemonProvider} from './src/context/PokemonContext';
 import HomeScreen from './src/screens/HomeScreen';
 import PokemonDetailScreen from './src/screens/PokemonDetailScreen';
 import AddPokemonScreen from './src/screens/AddPokemonScreen';
+import AppNavigator from './navigation/AppNavigator';
 
 const Stack = createStackNavigator();
 
@@ -22,14 +23,7 @@ const App: React.FC = () => {
       <StatusBar barStyle="dark-content" />
       <SafeAreaView style={{flex: 1}}>
         <PokemonProvider>
-          <Stack.Navigator initialRouteName="Home">
-            <Stack.Screen name="Home" component={HomeScreen} />
-            <Stack.Screen
-              name="PokemonDetail"
-              component={PokemonDetailScreen}
-            />
-            <Stack.Screen name="AddPokemon" component={AddPokemonScreen} />
-          </Stack.Navigator>
+         <AppNavigator/>
         </PokemonProvider>
       </SafeAreaView>
     </NavigationContainer>

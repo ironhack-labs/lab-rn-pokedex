@@ -1,11 +1,11 @@
 import React from 'react';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
-import HomeScreen from './screens/HomeScreen';
-import PokemonDetailScreen from './screens/PokemonDetailScreen';
-import AddPokemonScreen from './screens/AddPokemonScreen';
-import {PokemonProvider} from './context/PokemonContext';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import PokemonDetailScreen from '../src/screens/PokemonDetailScreen';
+import AddPokemonScreen from '../src/screens/AddPokemonScreen';
+import { PokemonProvider } from '../src/context/PokemonContext';
+import HomeScreen from '../src/screens/HomeScreen';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -19,14 +19,10 @@ const HomeStack = () => (
 
 const AppNavigator = () => {
   return (
-    <PokemonProvider>
-      <NavigationContainer>
-        <Tab.Navigator>
-          <Tab.Screen name="Home" component={HomeStack} />
-          <Tab.Screen name="AddPokemon" component={AddPokemonScreen} />
-        </Tab.Navigator>
-      </NavigationContainer>
-    </PokemonProvider>
+      <Tab.Navigator screenOptions={{headerShown:false}}>
+        <Tab.Screen name="Home" component={HomeStack} />
+        <Tab.Screen name="AddPokemon" component={AddPokemonScreen} />
+      </Tab.Navigator>
   );
 };
 
