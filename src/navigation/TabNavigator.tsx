@@ -1,8 +1,7 @@
 import React from 'react';
-import {Button, Text} from 'react-native';
+import {Text} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import HomeNavigator, { HomeNavigatorProps } from './HomeNavigator';
-import { StackNavigationProp } from '@react-navigation/stack';
 
 export type TabNavigatorProps = {
   TAB_HOME: HomeNavigatorProps;
