@@ -5,7 +5,7 @@ import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { PokemonCardProps, PokemonFetch, Type } from '../types/Types';
 
 const PokemonCard = ({ pokemon, onPress }: PokemonCardProps) => {
-  const [pokemonData, setPokemonData] = useState<PokemonFetch>(); // Usamos "any" porque el tipo completo del objeto de respuesta es bastante complejo
+  const [pokemonData, setPokemonData] = useState<PokemonFetch>();
 
   useEffect(() => {
     fetchPokemonData();
@@ -30,7 +30,9 @@ const PokemonCard = ({ pokemon, onPress }: PokemonCardProps) => {
 
   return (
     <TouchableOpacity style={styles.container} onPress={onPress}>
-      <Image source={{ uri: pokemonImage }} style={styles.image} />
+        <View style={{width: '45%'}}>
+            <Image source={{ uri: pokemonImage }} style={styles.image}  resizeMode='cover'/>
+        </View>
       <View style={styles.details}>
         <Text>#{pokemonId}</Text>
         <Text style={styles.name}>{pokemon.name}</Text>
@@ -51,16 +53,17 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     padding: 10,
-    borderRadius: 8,
-    backgroundColor: '#f1f1f1',
+    borderRadius: 15,
+    backgroundColor: '#e5e5e5',
     marginBottom: 10,
   },
   image: {
-    width: 80,
+    width: '100%',
     height: 80,
     borderRadius: 40,
   },
   details: {
+    flex: 1,
     marginLeft: 15,
   },
   name: {
