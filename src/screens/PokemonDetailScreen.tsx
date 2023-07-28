@@ -1,16 +1,29 @@
+import {RouteProp} from '@react-navigation/native';
 import React from 'react';
 import {SafeAreaView, Text, Image, StyleSheet} from 'react-native';
+import {PokemonT} from '../components/PokemonCard';
 
-export const PokemonDetailScreen = () => {
+type ScreenParams = {
+  information: PokemonT;
+};
+
+type ScreenRouteProp = RouteProp<Record<string, ScreenParams>>;
+
+type PropsT = {
+  route: ScreenRouteProp;
+};
+
+export const PokemonDetailScreen = ({route}: PropsT) => {
+  const {information} = route.params;
+
   return (
     <>
       <SafeAreaView style={styles.container}>
-        <Text>ID</Text>
-        <Text style={styles.name}>bulbasaur</Text>
+        <Text>{information?.id ?? ''}</Text>
+        <Text style={styles.name}>{information?.name ?? ''}</Text>
         {/* <Image source={require('')} />*/}
-        <Text>Type</Text>
-        <Text>Sprite</Text>
-        <Text>Abilities</Text>
+        <Text>{information?.type ?? ''}</Text>
+        <Text>{information?.abilities ?? ''}</Text>
       </SafeAreaView>
     </>
   );

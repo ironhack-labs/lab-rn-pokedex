@@ -7,6 +7,12 @@ import {
   PokemonDetailScreen,
 } from '../src/screens';
 
+export type RootStackParamList = {
+  Home: undefined;
+  AddPokemon: undefined;
+  PokemonDetail: {};
+};
+
 const Stack = createNativeStackNavigator();
 
 function AppNavigator(): JSX.Element {
