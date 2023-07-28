@@ -12,7 +12,7 @@ const PokemonItem: React.FC<PokemonItemProps> = ({name, id}) => {
   const navigation = useNavigation();
 
   const handlePress = () => {
-navigation.navigate('pokemonDetails', { pokemonName: name });
+navigation.navigate('PokemonDetail', { pokemonName: name });
   };
 
   return (
@@ -27,6 +27,7 @@ type PokemonListProps = {
 };
 
 const PokemonList: React.FC<PokemonListProps> = ({pokemons}) => {
+  
   return (
     <FlatList
       data={pokemons}
