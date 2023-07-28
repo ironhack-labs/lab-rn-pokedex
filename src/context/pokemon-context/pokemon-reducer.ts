@@ -1,4 +1,4 @@
-import type {Pokemon, PokemonDetails, CustomPokemon} from '../../models';
+import type {Pokemon, CustomPokemon} from '../../models';
 
 export type PokemonState = {
   pokemons: Pokemon[];
@@ -12,7 +12,6 @@ export const initialPokemonState: PokemonState = {
 
 export enum POKEMON_TYPES {
   SET_POKEMONS = 'SET_POKEMONS',
-  SET_POKEMON_DETAIL = 'SET_POKEMON_DETAIL',
   SET_CUSTOM_POKEMON = 'SET_CUSTOM_POKEMON',
 }
 
@@ -21,20 +20,12 @@ type SetPokemonsAction = {
   payload: {pokemons: Pokemon[]};
 };
 
-type SetPokemonDetailAction = {
-  type: POKEMON_TYPES.SET_POKEMON_DETAIL;
-  payload: {pokemon: PokemonDetails};
-};
-
 type SetCustomPokemonAction = {
   type: POKEMON_TYPES.SET_CUSTOM_POKEMON;
   payload: {pokemon: CustomPokemon};
 };
 
-type PokemonTypeActions =
-  | SetPokemonsAction
-  | SetPokemonDetailAction
-  | SetCustomPokemonAction;
+type PokemonTypeActions = SetPokemonsAction | SetCustomPokemonAction;
 
 export const pokemonReducer = (
   state: PokemonState,
@@ -45,20 +36,6 @@ export const pokemonReducer = (
       return {
         ...state,
         pokemons: action.payload.pokemons,
-      };
-    case POKEMON_TYPES.SET_POKEMON_DETAIL:
-      return {
-        ...state,
-        pokemons: state.pokemons.map(pokemon => {
-          const pokemonDetails = action.payload.pokemon;
-          if (pokemon.id === pokemonDetails.id) {
-            return {
-              ...pokemon,
-              detail: pokemonDetails,
-            };
-          }
-          return pokemon;
-        }),
       };
     case POKEMON_TYPES.SET_CUSTOM_POKEMON: {
       const customPokemon = action.payload.pokemon;

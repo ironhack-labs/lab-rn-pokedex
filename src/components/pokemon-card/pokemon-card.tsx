@@ -6,22 +6,23 @@ import type {Pokemon} from '../../models';
 import {NavigationProps} from '../../navigation/app-navigator.types';
 import {pokemonCardStyles} from './pokemon-card.styles';
 
-type PokemonCardProps = Pokemon;
+type PokemonCardProps = {
+  pokemon: Pokemon;
+};
 
-export const PokemonCard = ({name, thumbnail, id}: PokemonCardProps) => {
+export const PokemonCard = ({pokemon}: PokemonCardProps) => {
   const {navigate} = useNavigation<NavigationProps>();
 
   return (
     <TouchableOpacity
       style={pokemonCardStyles.button}
       activeOpacity={0.8}
-      onPress={() => navigate('PokemonDetail', {pokemonId: id})}>
+      onPress={() => navigate('PokemonDetail', {pokemon})}>
       <View style={pokemonCardStyles.card}>
-        <Text style={pokemonCardStyles.pokemonName}>{name}</Text>
-        <Text style={pokemonCardStyles.pokemonNumber}>#{id}</Text>
-        {/* NOTE: add styles later, and check if the femsa VPN block the thumbnail */}
+        <Text style={pokemonCardStyles.pokemonName}>{pokemon.name}</Text>
+        <Text style={pokemonCardStyles.pokemonNumber}>#{pokemon.id}</Text>
         <Image
-          source={{uri: thumbnail}}
+          source={{uri: pokemon.thumbnail}}
           style={pokemonCardStyles.pokemonImage}
         />
       </View>

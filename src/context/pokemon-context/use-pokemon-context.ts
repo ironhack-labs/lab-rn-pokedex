@@ -1,5 +1,5 @@
 import {useReducer} from 'react';
-import type {Pokemon, PokemonDetails, CustomPokemon} from '../../models';
+import type {Pokemon, CustomPokemon} from '../../models';
 
 import {
   PokemonState,
@@ -10,7 +10,6 @@ import {
 
 type PokemonContextActions = {
   setPokemons: (pokemons: Pokemon[]) => void;
-  setPokemonDetails: (pokemon: PokemonDetails) => void;
   setCustomPokemon: (pokemon: CustomPokemon) => void;
 };
 
@@ -19,7 +18,6 @@ export type PokemonContext = PokemonState & PokemonContextActions;
 export const initialContextValue: PokemonContext = {
   ...initialPokemonState,
   setPokemons: () => null,
-  setPokemonDetails: () => null,
   setCustomPokemon: () => null,
 };
 
@@ -29,9 +27,6 @@ export const useContextPokemon = () => {
   const storeActions: PokemonContextActions = {
     setPokemons: (pokemons: Pokemon[]) => {
       dispatch({type: POKEMON_TYPES.SET_POKEMONS, payload: {pokemons}});
-    },
-    setPokemonDetails: (pokemon: PokemonDetails) => {
-      dispatch({type: POKEMON_TYPES.SET_POKEMON_DETAIL, payload: {pokemon}});
     },
     setCustomPokemon: (pokemon: CustomPokemon) => {
       dispatch({type: POKEMON_TYPES.SET_CUSTOM_POKEMON, payload: {pokemon}});

@@ -19,7 +19,7 @@ export const PokemonList = ({pokemons}: PokemonListProps) => (
           pokemonListStyles.itemContainer,
           index % 2 === 0 && pokemonListStyles.columnSeparator,
         ]}>
-        <PokemonCard {...pokemon} />
+        <PokemonCard pokemon={pokemon} />
       </View>
     )}
     keyExtractor={item => item.name}
