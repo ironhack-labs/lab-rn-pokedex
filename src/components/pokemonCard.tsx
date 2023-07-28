@@ -1,6 +1,7 @@
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
-import {View, Text, TouchableOpacity, Image, StyleSheet} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
+import { Image, Text, TouchableOpacity } from 'react-native';
+import styles from '../styles/card';
 
 type PokemonCardProps = {
   pokemon: {
@@ -20,27 +21,10 @@ const PokemonCard: React.FC<PokemonCardProps> = ({pokemon}) => {
   return (
     <TouchableOpacity style={styles.container} onPress={handlePokemonPress}>
       <Image source={{uri: pokemon.image}} style={styles.image} />
-      <Text>{pokemon.name}</Text>
       <Text>#{pokemon.id}</Text>
+      <Text>{pokemon.name}</Text>
     </TouchableOpacity>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    margin: 8,
-    padding: 16,
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 8,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  image: {
-    width: 100,
-    height: 100,
-    marginBottom: 8,
-  },
-});
 
 export default PokemonCard;

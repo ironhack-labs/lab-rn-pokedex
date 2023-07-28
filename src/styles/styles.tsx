@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import {StyleSheet} from 'react-native';
 import theme from './themes';
 
 export default StyleSheet.create({
@@ -67,5 +67,9 @@ export default StyleSheet.create({
     marginBottom: 16,
     borderRadius: 10, // Hacemos las esquinas más redondeadas
     resizeMode: 'cover', // Ajustamos la imagen para que cubra todo el espacio sin deformarla
+  },
+
+  card: {
+    width: '100%',
   },
 });

@@ -1,17 +1,20 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
-import {usePokemonContext} from '../context/pokemonContext';
+import { Text } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import PokeImg from '../../img/PokeImg';
 import PokemonList from '../components/pokemonList';
+import { usePokemonContext } from '../context/pokemonContext';
 import styles from '../styles/styles';
 
 const homeScreen = () => {
   const {state} = usePokemonContext();
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
+      <PokeImg />
       <Text style={styles.text}>Bienvenido a la pokedex!</Text>
       <PokemonList pokemons={state.pokemonList} />
-    </View>
+    </SafeAreaView>
   );
 };
 export default homeScreen;
