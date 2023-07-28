@@ -1,27 +1,42 @@
-import axios, {AxiosRequestConfig} from 'axios';
+import axios, {AxiosInstance} from 'axios';
+
+type RequestItem = {
+  name: string;
+  url: string;
+};
 
 export type Pokemon = {
-  name: 'string';
-  url: 'string';
+  name: string;
+  id: string;
+  image: string;
+  type: string;
+  abilities: Object[];
 };
 
 type GetResponse = {
-  data: Pokemon[];
+  data: RequestItem[];
 };
 
-const pokemonAxiosInstance = axios.create({
+const pokemonAxiosInstance: AxiosInstance = axios.create({
   baseURL: 'https://pokeapi.co/api/v2/pokemon',
   timeout: 1000,
   headers: {'X-Custom-Header': 'foobar', Accept: 'application/json'},
 });
 
-export async function useFetch() {
+export const useFetch: Promise<Pokemon[]> = async () => {
   try {
     const {data, status} = await pokemonAxiosInstance.get<GetResponse>(
       `?limit=151`,
     );
-    console.log('response status is: ', status);
-    return data;
+
+    const fetchDetails: Promise<Pokemon> = async id =>
+      await pokemonAxiosInstance.get<GetResponse>(`/${id}/`);
+
+    data?.results.map(async (item: RequestItem) => {
+      const id = item.url.split('/').slice(-2, -1)[0];
+      const pokemon = await fetchDetails(id);
+      console.log('poke: ', pokemon.data.name);
+    });
   } catch (error) {
     if (axios.isAxiosError(error)) {
       console.log('error message: ', error.message);
@@ -31,4 +46,4 @@ export async function useFetch() {
       return 'An unexpected error occurred';
     }
   }
-}
+};

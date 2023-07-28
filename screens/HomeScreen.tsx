@@ -10,8 +10,6 @@ export const HomeScreen: React.FC<void> = (props: Props) => {
   useEffect(() => {
     async function getPokemons() {
       const data = await useFetch();
-      console.log('pokedata:  ', data.results.length);
-      setPokemonList(data?.results);
     }
 
     getPokemons();
