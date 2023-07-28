@@ -1,4 +1,4 @@
-import {AxiosError, AxiosRequestConfig} from 'axios';
+import {AxiosError, AxiosRequestConfig, AxiosResponseTransformer} from 'axios';
 import {pokemonAPI} from '../../api';
 import {useEffect, useState} from 'react';
 
@@ -23,7 +23,18 @@ export const useFetch = <ResponseData = any>({
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await pokemonAPI.request(requestConfig);
+        const transformResponse = (
+          [
+            ...(pokemonAPI.defaults
+              .transformResponse as AxiosResponseTransformer[]),
+            requestConfig?.transformResponse,
+          ] as AxiosResponseTransformer[]
+        ).filter(value => !!value);
+
+        const response = await pokemonAPI.request({
+          ...requestConfig,
+          transformResponse,
+        });
         onSuccess?.(response.data);
         setState(prevState => ({
           ...prevState,

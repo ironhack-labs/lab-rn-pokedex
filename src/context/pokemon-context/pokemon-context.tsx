@@ -6,17 +6,34 @@ import {
   initialContextValue,
 } from './use-pokemon-context';
 import {useFetch} from '../../hooks';
-import {Pokemon} from '../../models';
+import {GetPokemonResponse, Pokemon} from '../../models';
 
 const pokemonContext = createContext<PokemonContext>(initialContextValue);
 
 export const PokemonProvider = ({children}: {children: ReactNode}) => {
   const ctxValue = useContextPokemon();
-  const {loading} = useFetch<{results: Pokemon[]}>({
+  const {loading} = useFetch<Pokemon[]>({
     method: 'get',
     url: 'pokemon',
     params: {limit: 151},
-    onSuccess: ({results: pokemons}) => {
+    transformResponse: (data: GetPokemonResponse) => {
+      if (data?.results) {
+        // NOTE: endpoint doesn't return the id, so i get the id by the url, manipulating the response
+        return data.results.map(pokemon => {
+          // NOTE: this can be risky because I asume that the url have the pokemon ID
+          const id = +/(\d+)\/$/.exec(pokemon.url)![1];
+
+          return {
+            ...pokemon,
+            id,
+            thumbnail: `https://pokeres.bastionbot.org/images/pokemon/${id}.png`,
+          };
+        }) as Pokemon[];
+      }
+
+      return data;
+    },
+    onSuccess: pokemons => {
       ctxValue.setPokemons(pokemons);
     },
   });

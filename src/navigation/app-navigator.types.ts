@@ -5,7 +5,7 @@ import type {Pokemon} from '../models';
 export type RootStackParamList = {
   Home: undefined;
   PokemonDetail: {
-    pokemon: Pokemon;
+    pokemonId: Pokemon['id'];
   };
   AddPokemon: undefined;
 };

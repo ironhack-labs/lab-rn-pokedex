@@ -6,4 +6,5 @@
   },
   "prettier.eslintIntegration": true,
   "editor.formatOnSave": true,
+  "exportall.config.relExclusion": ["/src/components/index.ts"]
 }
