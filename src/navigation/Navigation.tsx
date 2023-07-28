@@ -1,9 +1,9 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import Icon from 'react-native-vector-icons/FontAwesome5';
 import HomeScreen from '../screens/HomeScreen';
 import AddPokemonScreen from '../screens/AddPokemonScreen';
 import PokemonDetailsScreen from '../screens/PokemonDetailsScreen';
+import TabBarIcon from '../components/TabBarIcon';
 
 const Tab = createBottomTabNavigator();
 
@@ -15,7 +15,9 @@ const Navigation = () => {
         component={HomeScreen}
         options={{
           tabBarLabel: 'Inicio',
-          tabBarIcon: () => <Icon name="home" color="#000" size={20} />,
+          tabBarIcon: ({color, size}) => (
+            <TabBarIcon color={color} size={size} icon="home" />
+          ),
         }}
       />
       <Tab.Screen
@@ -23,7 +25,9 @@ const Navigation = () => {
         component={AddPokemonScreen}
         options={{
           tabBarLabel: 'Detalles',
-          tabBarIcon: () => <Icon name="home" color="#000" size={20} />,
+          tabBarIcon: ({color, size}) => (
+            <TabBarIcon color={color} size={size} icon="search" />
+          ),
         }}
       />
       <Tab.Screen
@@ -31,7 +35,9 @@ const Navigation = () => {
         component={PokemonDetailsScreen}
         options={{
           tabBarLabel: 'Inicio',
-          tabBarIcon: () => <Icon name="home" color="#000" size={20} />,
+          tabBarIcon: ({color, size}) => (
+            <TabBarIcon color={color} size={size} icon="user" />
+          ),
         }}
       />
     </Tab.Navigator>
