@@ -13,7 +13,10 @@ export type RootStackParamList = {
 
 export type NavigationProps = StackNavigationProp<RootStackParamList>;
 export type HomeScreenProps = StackScreenProps<RootStackParamList, 'Home'>;
-export type PokemonSearchProps = StackScreenProps<RootStackParamList, 'PokemonSearch'>
+export type PokemonSearchProps = StackScreenProps<
+  RootStackParamList,
+  'PokemonSearch'
+>;
 export type PokemonDetailScreenProps = StackScreenProps<
   RootStackParamList,
   'PokemonDetail'
