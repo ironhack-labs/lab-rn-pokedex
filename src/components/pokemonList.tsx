@@ -8,11 +8,12 @@ type PokemonListProps = {
 };
 
 const PokemonList: React.FC<PokemonListProps> = ({pokemons}) => {
+  console.log(pokemons);
   
   return (
     <FlatList
       data={pokemons}
-      renderItem={({item}) => <PokemonCard name={item.name} id={item.id} image={item.image}/>}
+      renderItem={({item}) => <PokemonCard name={item.name} id={item.id} image={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${item.id}.png`}/>}
       keyExtractor={item => String(item.id)}
       style={styles.listContainer}
     />
