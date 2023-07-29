@@ -22,10 +22,16 @@ import React, {
     | {type: 'ADD_POKEMON'; payload: Pokemon}
     | {type: 'SET_SELECTED_POKEMON'; payload: Pokemon | null};
   
-  type State = {
-    pokemonList: Pokemon[];
-    selectedPokemon: Pokemon | null;
-  };
+    type State = {
+      pokemonList: Pokemon[];
+      myPokemons: Pokemon[];
+      selectedPokemon: Pokemon | null;
+    };
+    type PokemonDetails = {
+      name: string;
+      id: number;
+      url: string; 
+    };
   
   
   type PokemonContextType = {
@@ -48,24 +54,33 @@ import React, {
       case 'SET_POKEMON_LIST':
         return {...state, pokemonList: action.payload};
       case 'ADD_POKEMON':
-        return {...state, pokemonList: [...state.pokemonList, action.payload]};
+        return {...state, myPokemons: [...state.myPokemons, action.payload]};
       case 'SET_SELECTED_POKEMON':
         return {...state, selectedPokemon: action.payload};
       default:
         return state;
     }
   };
-  
+
   export const PokemonProvider: React.FC<{children: ReactNode}> = ({
     children,
   }) => {
     const [state, dispatch] = useReducer(pokemonReducer, {
       pokemonList: [],
+      myPokemons: [],
       selectedPokemon: null,
     });
-  
+
     const {data} = useFetch('https://pokeapi.co/api/v2/pokemon?limit=151');
   
+    const fetchPokemonImage = async (
+      pokemon: PokemonDetails,
+    ): Promise<string> => {
+      const response = await fetch(pokemon.url);
+      const data = await response.json();
+      return data.sprites.front_default;
+    };
+    
     useEffect(() => {
       if (data) {
         const pokemonList: Pokemon[] = data.results.map(
@@ -84,24 +99,21 @@ import React, {
       }
     }, [data]);
 
-    const  AddPokemon =(pokemon:Pokemon)=>{
+    const addPokemon = (pokemon: Pokemon) => {
       dispatch({
-        payload:pokemon,
-        type:'ADD_POKEMON'
+        payload: pokemon,
+        type: 'ADD_POKEMON',
       });
     };
   
   
     return (
-      <PokemonContext.Provider value={{state, dispatch , AddPokemon }}>
+      <PokemonContext.Provider
+        value={{state, dispatch, fetchPokemonImage, addPokemon}}>
         {children}
       </PokemonContext.Provider>
     );
-
-
-  
-  
-};
+  };
 
   export const usePokemonContext = () => useContext(PokemonContext);
 

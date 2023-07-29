@@ -1,27 +1,26 @@
+import {Control, Path} from 'react-hook-form';
+import {TextInputProps} from 'react-native';
+
+export type Pokemon = {
+    name: string;
+    id: number;
+    image: string;
+    type: string;
+    abilities: string[];
+  };
+  
+  export type FormInputProps<T extends object> = {
+    control: Control<T>;
+    controlName: Path<T>;
+    inputProps?: TextInputProps;
+    error?: string;
+    required?: boolean;
+  };
 
 export interface Welcome {
     pokemon: Pokemon[];
 }
 
-export interface Pokemon {
-    id:              number;
-    num:             string;
-    name:            string;
-    img:             string;
-    type:            Type[];
-    height:          string;
-    weight:          string;
-    candy:           string;
-    candy_count?:    number;
-    egg:             Egg;
-    spawn_chance:    number;
-    avg_spawns:      number;
-    spawn_time:      string;
-    multipliers:     number[] | null;
-    weaknesses:      Type[];
-    next_evolution?: Evolution[];
-    prev_evolution?: Evolution[];
-}
 
 export enum Egg {
     NotInEggs = "Not in Eggs",
