@@ -59,7 +59,7 @@ export const PokemonProvider: React.FC<{children: ReactNode}> = ({
     selectedPokemon: null,
   });
 
-  const {data} = useFetch('https://pokeapi.co/api/v2/pokemon?limit=151');
+  const {data} = useFetch('https://pokeapi.co/api/v2/pokemon?limit=150');
 
   const fetchPokemonImage = async (
     pokemon: PokemonDetails,

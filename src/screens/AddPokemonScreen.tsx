@@ -7,7 +7,7 @@ import {View, Text, TouchableOpacity} from 'react-native';
 import FormInput from '../components/FormInput';
 import React from 'react';
 
-const AddPokemonScreen: React.FC = () => {
+const AddPokemonScreen = () => {
   const {navigate} = useNavigation();
   const {control, handleSubmit, formState, reset} = useForm<Pokemon>();
   const {errors} = formState;
