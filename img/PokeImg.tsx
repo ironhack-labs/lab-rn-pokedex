@@ -21,8 +21,8 @@ function PokeImg() {
           y1="0"
           y2="185.5"
           gradientUnits="userSpaceOnUse">
-          <Stop stopColor="#F5F5F5"></Stop>
-          <Stop offset="1" stopColor="#fff"></Stop>
+          <Stop stopColor="#e2e2e2"></Stop>
+          <Stop offset="1" stopColor="#e2e2e2"></Stop>
         </LinearGradient>
         <LinearGradient
           id="paint1_linear_268_1"
@@ -31,8 +31,8 @@ function PokeImg() {
           y1="0"
           y2="185.5"
           gradientUnits="userSpaceOnUse">
-          <Stop stopColor="#F5F5F5"></Stop>
-          <Stop offset="1" stopColor="#fff"></Stop>
+          <Stop stopColor="#e2e2e2"></Stop>
+          <Stop offset="1" stopColor="#e2e2e2"></Stop>
         </LinearGradient>
         <LinearGradient
           id="paint2_linear_268_1"
@@ -41,8 +41,8 @@ function PokeImg() {
           y1="0"
           y2="185.5"
           gradientUnits="userSpaceOnUse">
-          <Stop stopColor="#F5F5F5"></Stop>
-          <Stop offset="1" stopColor="#fff"></Stop>
+          <Stop stopColor="#e2e2e2"></Stop>
+          <Stop offset="1" stopColor="#e2e2e2"></Stop>
         </LinearGradient>
       </Defs>
     </Svg>

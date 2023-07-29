@@ -1,4 +1,5 @@
 import {StyleSheet} from 'react-native';
+import themes from './themes';
 
 export default StyleSheet.create({
   container: {
@@ -9,6 +10,8 @@ export default StyleSheet.create({
     background: '#ffffff',
     alignItems: 'center',
     justifyContent: 'center',
+    width: "100%",
+    backgroundColor: themes.colors.primary,
   },
   image: {
     width: 100,

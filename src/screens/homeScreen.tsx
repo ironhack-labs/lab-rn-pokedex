@@ -5,7 +5,7 @@ import PokemonList from '../components/pokemonList';
 import { usePokemonContext } from '../context/pokemonContext';
 import styles from '../styles/styles';
 
-const homeScreen = () => {
+const HomeScreen = () => {
   const {state} = usePokemonContext();
 
   return (
@@ -18,4 +18,4 @@ const homeScreen = () => {
     </SafeAreaView>
   );
 };
-export default homeScreen;
+export default HomeScreen;

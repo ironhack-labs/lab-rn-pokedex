@@ -8,6 +8,10 @@ import addPokemonScreen from '../screens/addPokemonScreen';
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
+export type RootStackParamList = {
+  PokemonDetail: { pokemonName: string, };
+};
+
 const HomeStack = () => (
   <Stack.Navigator>
     <Stack.Screen

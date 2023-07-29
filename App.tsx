@@ -1,32 +1,25 @@
-
-import 'react-native-gesture-handler';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
-import {SafeAreaView, StatusBar} from 'react-native';
-import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
-import {PokemonProvider} from './src/context/pokemonContext';
-import HomeScreen from './src/screens/HomeScreen';
-// import PokemonDetailScreen from './src/screens/PokemonDetailScreen';
-import AddPokemonScreen from './src/screens/addPokemonScreen';
+import 'react-native-gesture-handler';
+import { PokemonProvider } from './src/context/pokemonContext';
 import AppNavigator from './src/navigation/navigation';
+import { theme } from './src/styles/themes';
 
 const Stack = createStackNavigator();
 
 type RootStackParamList = {
   Home: undefined;
-  PokemonDetail: {pokemonName: string}; 
+  PokemonDetail: {pokemonName: string};
   AddPokemon: undefined;
 };
 
 const App: React.FC = () => {
   return (
-    <NavigationContainer>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView style={{flex: 1}}>
-        <PokemonProvider>
-         <AppNavigator/>
-        </PokemonProvider>
-      </SafeAreaView>
+    <NavigationContainer theme={theme}>
+      <PokemonProvider>
+        <AppNavigator />
+      </PokemonProvider>
     </NavigationContainer>
   );
 };

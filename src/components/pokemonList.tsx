@@ -1,29 +1,10 @@
 import React from 'react';
-import {FlatList, TouchableOpacity, Text, StyleSheet} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
+import { FlatList } from 'react-native';
 import styles from '../styles/styles';
-
-type PokemonItemProps = {
-  name: string;
-  id: number;
-};
-
-const PokemonItem: React.FC<PokemonItemProps> = ({name, id}) => {
-  const navigation = useNavigation();
-
-  const handlePress = () => {
-navigation.navigate('PokemonDetail', { pokemonName: name });
-  };
-
-  return (
-    <TouchableOpacity style={styles.pokemonItem} onPress={handlePress}>
-      <Text style={styles.pokemonItemText}>{name}</Text>
-    </TouchableOpacity>
-  );
-};
+import PokemonCard, { PokemonCardProps } from './pokemonCard';
 
 type PokemonListProps = {
-  pokemons: PokemonItemProps[];
+  pokemons: PokemonCardProps[];
 };
 
 const PokemonList: React.FC<PokemonListProps> = ({pokemons}) => {
@@ -31,7 +12,7 @@ const PokemonList: React.FC<PokemonListProps> = ({pokemons}) => {
   return (
     <FlatList
       data={pokemons}
-      renderItem={({item}) => <PokemonItem name={item.name} id={item.id} />}
+      renderItem={({item}) => <PokemonCard name={item.name} id={item.id} image={item.image}/>}
       keyExtractor={item => String(item.id)}
       style={styles.listContainer}
     />
