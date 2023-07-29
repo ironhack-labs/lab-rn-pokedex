@@ -1,17 +1,18 @@
-import type {Pokemon, PokemonDetails} from '../../models';
+import type {Pokemon, CustomPokemon} from '../../models';
 
 export type PokemonState = {
   pokemons: Pokemon[];
+  customPokemons: Pokemon[];
 };
 
 export const initialPokemonState: PokemonState = {
   pokemons: [],
+  customPokemons: [],
 };
 
 export enum POKEMON_TYPES {
   SET_POKEMONS = 'SET_POKEMONS',
-  ADD_POKEMON = 'ADD_POKEMON',
-  SET_POKEMON_DETAIL = 'SET_POKEMON_DETAIL',
+  SET_CUSTOM_POKEMON = 'SET_CUSTOM_POKEMON',
 }
 
 type SetPokemonsAction = {
@@ -19,20 +20,12 @@ type SetPokemonsAction = {
   payload: {pokemons: Pokemon[]};
 };
 
-type SetPokemonDetailAction = {
-  type: POKEMON_TYPES.SET_POKEMON_DETAIL;
-  payload: {pokemon: PokemonDetails};
+type SetCustomPokemonAction = {
+  type: POKEMON_TYPES.SET_CUSTOM_POKEMON;
+  payload: {pokemon: CustomPokemon};
 };
 
-type AddPokemonAction = {
-  type: POKEMON_TYPES.ADD_POKEMON;
-  payload: {pokemon: Pokemon};
-};
-
-type PokemonTypeActions =
-  | SetPokemonsAction
-  | SetPokemonDetailAction
-  | AddPokemonAction;
+type PokemonTypeActions = SetPokemonsAction | SetCustomPokemonAction;
 
 export const pokemonReducer = (
   state: PokemonState,
@@ -44,25 +37,36 @@ export const pokemonReducer = (
         ...state,
         pokemons: action.payload.pokemons,
       };
-    case POKEMON_TYPES.SET_POKEMON_DETAIL:
+    case POKEMON_TYPES.SET_CUSTOM_POKEMON: {
+      const customPokemon = action.payload.pokemon;
+      const defaultThumbnail =
+        'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/0.png';
+
       return {
         ...state,
-        pokemons: state.pokemons.map(pokemon => {
-          const pokemonDetails = action.payload.pokemon;
-          if (pokemon.id === pokemonDetails.id) {
-            return {
-              ...pokemon,
-              detail: pokemonDetails,
-            };
-          }
-          return pokemon;
-        }),
+        customPokemons: [...state.customPokemons].concat({
+          id: customPokemon.id,
+          name: customPokemon.name,
+          thumbnail: customPokemon.thumbnail || defaultThumbnail,
+          detail: {
+            abilities: [
+              {
+                ability: {
+                  name: customPokemon.ability,
+                },
+              },
+            ],
+            types: [
+              {
+                type: {
+                  name: customPokemon.type,
+                },
+              },
+            ],
+          },
+        } as Pokemon),
       };
-    case POKEMON_TYPES.ADD_POKEMON:
-      return {
-        ...state,
-        pokemons: [...state.pokemons].concat(action.payload.pokemon),
-      };
+    }
     default:
       return state;
   }

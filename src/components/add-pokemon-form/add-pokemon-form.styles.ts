@@ -24,7 +24,7 @@ export const addPokemonFormStyles = StyleSheet.create({
   submitBtn: {
     backgroundColor: '#333',
     color: '#fff',
-    padding: 20,
+    padding: 10,
     borderRadius: 4,
   },
   submitBtnText: {

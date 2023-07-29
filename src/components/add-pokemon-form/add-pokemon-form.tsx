@@ -2,26 +2,27 @@ import {View, TextInput, Text, TouchableOpacity} from 'react-native';
 import React from 'react';
 
 import {useForm, Controller, SubmitHandler} from 'react-hook-form';
-import type {Pokemon} from '../../models';
+import type {CustomPokemon} from '../../models';
 
 import {addPokemonFormStyles} from './add-pokemon-form.styles';
+import {usePokemonCtx} from '../../context';
 
-type AddPokemonFormValues = {
-  name: Pokemon['name'];
-  id: Pokemon['id'];
-  thumbnail: Pokemon['thumbnail'];
-  type: string;
-  abilities: string;
+type AddPokemonFormValues = CustomPokemon;
+type AddPokemonFormProps = {
+  onAddPokemonSuccess: () => void;
 };
 
-export const AddPokemonForm = () => {
+export const AddPokemonForm = ({onAddPokemonSuccess}: AddPokemonFormProps) => {
+  const {setCustomPokemon} = usePokemonCtx();
   const {
     control,
     handleSubmit,
     formState: {errors},
   } = useForm<AddPokemonFormValues>();
+
   const onSubmit: SubmitHandler<AddPokemonFormValues> = data => {
-    console.log(data);
+    setCustomPokemon(data);
+    onAddPokemonSuccess();
   };
 
   return (
@@ -69,19 +70,15 @@ export const AddPokemonForm = () => {
         <Controller
           name="thumbnail"
           control={control}
-          rules={{required: true}}
           render={({field: {value, onChange}}) => (
             <TextInput
-              placeholder="Image"
+              placeholder="Picture"
               style={addPokemonFormStyles.input}
               value={value}
               onChangeText={onChange}
             />
           )}
         />
-        {errors.thumbnail && (
-          <Text style={addPokemonFormStyles.error}>This is required.</Text>
-        )}
       </View>
 
       <View>
@@ -105,19 +102,19 @@ export const AddPokemonForm = () => {
 
       <View>
         <Controller
-          name="abilities"
+          name="ability"
           control={control}
           rules={{required: true}}
           render={({field: {value, onChange}}) => (
             <TextInput
-              placeholder="Abilities"
+              placeholder="Ability"
               style={addPokemonFormStyles.input}
               value={value}
               onChangeText={onChange}
             />
           )}
         />
-        {errors.abilities && (
+        {errors.ability && (
           <Text style={addPokemonFormStyles.error}>This is required.</Text>
         )}
       </View>

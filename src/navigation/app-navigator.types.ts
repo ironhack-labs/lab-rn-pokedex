@@ -5,7 +5,7 @@ import type {Pokemon} from '../models';
 export type RootStackParamList = {
   Home: undefined;
   PokemonDetail: {
-    pokemonId: Pokemon['id'];
+    pokemon: Pokemon;
   };
   AddPokemon: undefined;
   PokemonSearch: undefined;
@@ -13,7 +13,10 @@ export type RootStackParamList = {
 
 export type NavigationProps = StackNavigationProp<RootStackParamList>;
 export type HomeScreenProps = StackScreenProps<RootStackParamList, 'Home'>;
-export type PokemonSearchProps = StackScreenProps<RootStackParamList, 'PokemonSearch'>
+export type PokemonSearchProps = StackScreenProps<
+  RootStackParamList,
+  'PokemonSearch'
+>;
 export type PokemonDetailScreenProps = StackScreenProps<
   RootStackParamList,
   'PokemonDetail'

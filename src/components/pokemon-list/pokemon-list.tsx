@@ -10,7 +10,7 @@ type PokemonListProps = {
 
 export const PokemonList = ({pokemons}: PokemonListProps) => (
   <FlatList
-    contentContainerStyle={pokemonListStyles.container}
+    style={pokemonListStyles.container}
     data={pokemons}
     numColumns={2}
     renderItem={({item: pokemon, index}) => (
@@ -19,7 +19,7 @@ export const PokemonList = ({pokemons}: PokemonListProps) => (
           pokemonListStyles.itemContainer,
           index % 2 === 0 && pokemonListStyles.columnSeparator,
         ]}>
-        <PokemonCard {...pokemon} />
+        <PokemonCard pokemon={pokemon} />
       </View>
     )}
     keyExtractor={item => item.name}
