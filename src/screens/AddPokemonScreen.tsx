@@ -1,49 +1,83 @@
-import React, {useState} from 'react';
-import {View, Text, TextInput, Button, StyleSheet} from 'react-native';
+import {pokeFormStyles} from '../theme/PokeForm.styles';
+import {Pokemon} from '../types';
+import {useForm} from 'react-hook-form';
 import {useNavigation} from '@react-navigation/native';
 import {usePokemonContext} from '../context/PokemonContext';
-import styles from '../styles';
+import {View, Text, TouchableOpacity} from 'react-native';
+import FormInput from '../components/FormInput';
+import React from 'react';
 
-const AddPokemonScreen: React.FC = () => {
-  const [pokemonName, setPokemonName] = useState('');
-  const [abilities, setAbilities] = useState('');
-  const navigation = useNavigation();
-  const {state, dispatch} = usePokemonContext();
+const AddPokemonScreen = () => {
+  const {navigate} = useNavigation();
+  const {control, handleSubmit, formState, reset} = useForm<Pokemon>();
+  const {errors} = formState;
+  const {addPokemon} = usePokemonContext();
 
-  const handleAddPokemon = () => {
-    if (pokemonName) {
-      const id = Date.now();
-
-      const newPokemon = {
-        name: pokemonName,
-        id,
-        image: '',
-        type: '',
-        abilities: abilities.split(',').map(ability => ability.trim()),
-      };
-
-      dispatch({type: 'ADD_POKEMON', payload: newPokemon});
-
-      //navigation.navigate('Home'); // Modifica la llamada a navigation.navigate
-    }
+  const handleAddPokemon = (pokemon: Pokemon) => {
+    addPokemon({...pokemon, id: Number(pokemon.id + new Date().getDate())});
+    reset();
+    navigate('Home'); // Modifica la llamada a navigation.navigate
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>Add a New Pokémon</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Enter Pokémon Name"
-        value={pokemonName}
-        onChangeText={setPokemonName}
+    <View style={pokeFormStyles.container}>
+      <Text style={pokeFormStyles.title}>Add a new Pokémon</Text>
+      <FormInput<Pokemon>
+        control={control}
+        controlName="name"
+        error={errors.name?.message}
+        required
+        inputProps={{
+          placeholder: 'Enter Pokémon Name',
+        }}
       />
-      <TextInput
-        style={styles.input}
-        placeholder="Enter Pokémon Abilities (comma-separated)"
-        value={abilities}
-        onChangeText={setAbilities}
+
+      <FormInput<Pokemon>
+        control={control}
+        controlName="id"
+        error={errors.id?.message}
+        required
+        inputProps={{
+          placeholder: 'Id for pokemon',
+        }}
       />
-      <Button title="Add Pokémon" onPress={handleAddPokemon} />
+
+      <FormInput<Pokemon>
+        control={control}
+        controlName="image"
+        error={errors.image?.message}
+        required
+        inputProps={{
+          placeholder: 'Picture for pokemon',
+          keyboardType: 'number-pad',
+        }}
+      />
+
+      <FormInput<Pokemon>
+        control={control}
+        controlName="type"
+        error={errors.type?.message}
+        required
+        inputProps={{
+          placeholder: 'Pokemon type',
+        }}
+      />
+
+      <FormInput<Pokemon>
+        control={control}
+        controlName="abilities"
+        error={errors.abilities?.message}
+        required
+        inputProps={{
+          placeholder: 'Abilities for pokemon',
+        }}
+      />
+
+      <TouchableOpacity
+        style={pokeFormStyles.submitButton}
+        onPress={handleSubmit(handleAddPokemon)}>
+        <Text style={pokeFormStyles.submitButtonText}>Submit</Text>
+      </TouchableOpacity>
     </View>
   );
 };
