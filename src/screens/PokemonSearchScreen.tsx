@@ -40,6 +40,7 @@ const PokemonSearchScreen = () => {
         pokemons={pokemonFiltered.map(x => ({
           id: x.id,
           name: x.name,
+          image: x.image,
         }))}
       />
     </View>
