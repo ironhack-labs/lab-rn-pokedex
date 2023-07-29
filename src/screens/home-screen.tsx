@@ -19,7 +19,6 @@ export const HomeScreen: FC<HomeScreenProps> = () => {
 
   return (
     <SectionList
-      stickyHeaderHiddenOnScroll
       sections={sectionsData}
       keyExtractor={item => item.id}
       renderItem={({item}) => <PokemonList pokemons={item.data} />}
@@ -34,7 +33,7 @@ export const HomeScreen: FC<HomeScreenProps> = () => {
 
 export const styles = StyleSheet.create({
   sectionTitle: {
-    backgroundColor: '#f2f2f2',
+    backgroundColor: '#fff',
     paddingHorizontal: 20,
     paddingVertical: 10,
   },
