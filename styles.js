@@ -41,6 +41,19 @@ const styles = StyleSheet.create({
     borderColor: 'grey',
     marginVertical: 4,
   },
+  submitButton: {
+    
+  },
+  successMessage:{
+   backgroundColor: 'green',
+   textAlign: 'center',
+   marginHorizontal: 16,
+   paddingVertical: 8,
+   overflow: 'hidden',
+   borderRadius: 16,
+   color: 'white',
+   fontWeight: 'bold'
+  },
 });
 
 export default styles;

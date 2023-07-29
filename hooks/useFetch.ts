@@ -62,8 +62,6 @@ export const useFetch = () => {
         });
 
         addPokemons(mappedPokemons);
-        //        const pokemon = await fetchDetails(id);
-        //      console.log('poke: ', pokemon.data.name);
       } catch (error) {
         if (axios.isAxiosError(error)) {
           console.log('error message: ', error.message);

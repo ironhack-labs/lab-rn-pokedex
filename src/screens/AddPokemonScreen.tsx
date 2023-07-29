@@ -1,5 +1,5 @@
-import {Text, ScrollView, TouchableOpacity, View} from 'react-native';
-import React from 'react';
+import {Text, ScrollView, TouchableOpacity, View, Button} from 'react-native';
+import React, { useState } from 'react';
 import {Controller, useForm} from 'react-hook-form';
 import styles from '../../styles';
 import PokeTextInput from '../components/PokeTextInput';
@@ -7,7 +7,7 @@ import {usePokemons} from '../hooks/usePokemons';
 
 type FormData = {
   name: string;
-  number: string;
+  id: string;
   image: string;
   type: string;
   abilities: string;
@@ -15,14 +15,20 @@ type FormData = {
 
 export default function AddPokemonScreen() {
   const {addPokemons} = usePokemons();
+  const [showSucces, setShowSucces] = useState(false);
 
   const {
     control,
     handleSubmit,
     formState: {errors},
+    reset
   } = useForm<FormData>();
 
   const onSubmit = (data: FormData) => {
+    const abilities = data.abilities.split(" ").filter(item => item !== "")
+    addPokemons([{...data, abilities, id: data.id + "ctd"}]);
+    setShowSucces(true);
+    reset();
   };
 
   return (
@@ -61,7 +67,7 @@ export default function AddPokemonScreen() {
       <View style={{marginTop: 4}} />
       <Controller
         control={control}
-        name="number"
+        name="id"
         rules={{required: 'Pokemon number is required'}}
         render={({field: {onChange, onBlur, value}}) => (
           <PokeTextInput
@@ -70,7 +76,7 @@ export default function AddPokemonScreen() {
             value={value}
             placeholder="Choose a number for your pokemon"
             label="Number"
-            errorMessage={errors.number?.message}
+            errorMessage={errors.id?.message}
           />
         )}
       />
@@ -107,9 +113,10 @@ export default function AddPokemonScreen() {
         )}
       />
       <View style={{marginTop: 4}} />
-      <TouchableOpacity onPress={handleSubmit(onSubmit)}>
-        <Text>Submit Pokemon!</Text>
-      </TouchableOpacity>
+      <View style={styles.submitButton} >
+        <Button title='Submit Pokemon' onPress={handleSubmit(onSubmit)}/>
+      </View>
+      {showSucces && <Text style={styles.successMessage}>Pokemon Submited!</Text>}
     </ScrollView>
   );
 }
