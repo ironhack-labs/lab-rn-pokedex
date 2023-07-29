@@ -1,21 +1,21 @@
 import React from 'react';
-import { FlatList } from 'react-native';
+import {FlatList, View} from 'react-native';
 import PokemonCard from './PokemonCard';
-
-//Types
-import { Pokemon } from '../types/Types';
+import {Pokemon} from '../../hooks/useFetch';
 
 interface PokemonListProps {
   data: Pokemon[];
 }
 
-const PokemonList: React.FC<PokemonListProps> = ({ data }) => {
+const PokemonList: React.FC<PokemonListProps> = ({data}) => {
   return (
-    <FlatList
-      data={data}
-      keyExtractor={(pokemon) => pokemon.name}
-      renderItem={({ item }) => <PokemonCard pokemon={item} />}
-    />
+    <View style={{paddingHorizontal: 25, marginTop: 16}}>
+      <FlatList
+        data={data}
+        keyExtractor={pokemon => pokemon.name}
+        renderItem={({item}) => <PokemonCard pokemon={item} />}
+      />
+    </View>
   );
 };
 

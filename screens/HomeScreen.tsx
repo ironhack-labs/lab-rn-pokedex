@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {FlatList, SafeAreaView, Text, View} from 'react-native';
 import {Pokemon, useFetch} from '../hooks/useFetch';
+import PokemonList from '../src/components/PokemonList';
 
 type Props = {};
 
@@ -9,13 +10,8 @@ export const HomeScreen = (props: Props) => {
 
   return (
     <SafeAreaView style={{flex: 1}}>
-      {/* <Text>Pokemons in List: {pokemonList?.length}</Text>
-
-      <FlatList
-        data={pokemonList}
-        contentContainerStyle={{flex: 1}}
-        renderItem={({item}) => <Text>{item.name}</Text>}
-      /> */}
+      <Text>Pokedex: {pokemons?.length}</Text>
+      <PokemonList data={pokemons} />
     </SafeAreaView>
   );
 };

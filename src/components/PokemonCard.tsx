@@ -6,32 +6,8 @@ import theme, {getTypeBackgroundColor, getTypeColor} from '../../theme';
 import {PokemonCardProps, PokemonFetch, Type} from '../types/Types';
 
 const PokemonCard = ({pokemon, onPress}: PokemonCardProps) => {
-  const [pokemonData, setPokemonData] = useState<PokemonFetch>();
-
-  useEffect(() => {
-    fetchPokemonData();
-  }, []);
-
-  const fetchPokemonData = async () => {
-    try {
-      const response = await fetch(pokemon.url);
-      const data = await response.json();
-      setPokemonData(data);
-    } catch (error) {
-      console.error('Error fetching Pokémon data:', error);
-    }
-  };
-
-  if (!pokemonData) {
-    return null;
-  }
-
-  const pokemonId = pokemon.url.split('/').slice(-2, -1)[0];
-  const pokemonImage = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonId}.png`;
-  const backgroundColorPokemon = getTypeBackgroundColor(
-    pokemonData.types[0].type.name,
-  );
-  const backgroundTypeColor = getTypeColor(pokemonData.types[0].type.name);
+  const backgroundColorPokemon = getTypeBackgroundColor(pokemon.type);
+  const backgroundTypeColor = getTypeColor(pokemon.type);
 
   return (
     <TouchableOpacity
@@ -39,27 +15,24 @@ const PokemonCard = ({pokemon, onPress}: PokemonCardProps) => {
       onPress={onPress}>
       <View style={{width: '45%'}}>
         <Image
-          source={{uri: pokemonImage}}
+          source={{uri: pokemon.image}}
           style={styles.image}
           resizeMode="cover"
         />
       </View>
       <View style={styles.details}>
-        <Text style={styles.pokemonId}>#{pokemonId}</Text>
+        <Text style={styles.pokemonId}>#{pokemon.id}</Text>
         <Text style={styles.name}>{pokemon.name}</Text>
         <View style={styles.typesContainer}>
-          {pokemonData.types.map((type: Type, index: number) => {
-            const backgroundTypeColor = getTypeColor(type.type.name);
-            return (
-              <View style={{borderRadius: 100, backgroundColor: backgroundTypeColor, alignItems: 'center', alignContent: 'center'}}>
-                <Text
-                  key={index}
-                  style={styles.type}>
-                  {type.type.name}
-                </Text>
-              </View>
-            );
-          })}
+          <View
+            style={{
+              borderRadius: 100,
+              backgroundColor: backgroundTypeColor,
+              alignItems: 'center',
+              alignContent: 'center',
+            }}>
+            <Text style={styles.type}>{pokemon.type}</Text>
+          </View>
         </View>
       </View>
     </TouchableOpacity>

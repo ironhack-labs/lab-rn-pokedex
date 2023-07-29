@@ -36,6 +36,7 @@ export const useFetch = () => {
   const {addPokemons, pokemons} = usePokemons();
   useEffect(() => {
     const fetchData = async () => {
+      if(pokemons.length){return;};
       try {
         const {data} = await pokemonAxiosInstance.get<GetResponse>(`?limit=20`);
 
