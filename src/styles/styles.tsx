@@ -49,8 +49,6 @@ export default StyleSheet.create({
   },
   listContainer: {
     width: '100%',
-    flex: 1,
-    padding: 16, // Agregamos espaciado interno para separar los elementos de la lista
   },
   pokemonItem: {
     paddingVertical: 12, // Reducimos el espacio vertical entre elementos de la lista
