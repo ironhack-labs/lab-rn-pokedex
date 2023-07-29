@@ -31,3 +31,19 @@ export async function fetchPokemonDescription(url: string) {
     return null;
   }
 }
+
+export async function fetchPokemonById(id: string) {
+  try {
+    const {data} = await axios.get<Pokemon>(
+      `https://pokeapi.co/api/v2/pokemon/${id}`,
+      {
+        headers: {
+          Accept: 'application/json',
+        },
+      },
+    );
+    return data;
+  } catch (error) {
+    return error;
+  }
+}

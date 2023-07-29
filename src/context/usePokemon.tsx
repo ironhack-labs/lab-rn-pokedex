@@ -47,6 +47,7 @@ export const PokeProvider = ({...props}) => {
         name: item.name,
         url: item.url,
         description: description,
+        id: item.id,
       });
     }
     dispatch({type: 'FETCH_POKEMON', payload: auxPokeArray});
