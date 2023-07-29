@@ -8,10 +8,12 @@ export type RootStackParamList = {
     pokemonId: Pokemon['id'];
   };
   AddPokemon: undefined;
+  PokemonSearch: undefined;
 };
 
 export type NavigationProps = StackNavigationProp<RootStackParamList>;
 export type HomeScreenProps = StackScreenProps<RootStackParamList, 'Home'>;
+export type PokemonSearchProps = StackScreenProps<RootStackParamList, 'PokemonSearch'>
 export type PokemonDetailScreenProps = StackScreenProps<
   RootStackParamList,
   'PokemonDetail'

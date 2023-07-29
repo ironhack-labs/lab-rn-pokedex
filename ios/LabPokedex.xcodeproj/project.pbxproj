@@ -39,6 +39,11 @@
 		19F6CBCC0A4E27FBF8BF4A61 /* libPods-LabPokedex-LabPokedexTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LabPokedex-LabPokedexTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B4392A12AC88292D35C810B /* Pods-LabPokedex.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LabPokedex.debug.xcconfig"; path = "Target Support Files/Pods-LabPokedex/Pods-LabPokedex.debug.xcconfig"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-LabPokedex.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LabPokedex.release.xcconfig"; path = "Target Support Files/Pods-LabPokedex/Pods-LabPokedex.release.xcconfig"; sourceTree = "<group>"; };
+		57F154A72A74686700B043D8 /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = FontAwesome5_Brands.ttf; path = "../../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; };
+		57F154A82A74686700B043D8 /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = FontAwesome5_Solid.ttf; path = "../../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
+		57F154A92A74686700B043D8 /* Ionicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Ionicons.ttf; path = "../../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
+		57F154AA2A74686800B043D8 /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = FontAwesome5_Regular.ttf; path = "../../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf"; sourceTree = "<group>"; };
+		57F154AB2A7468B400B043D8 /* FontAwesome.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = FontAwesome.ttf; path = "../../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-LabPokedex-LabPokedexTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LabPokedex-LabPokedexTests.debug.xcconfig"; path = "Target Support Files/Pods-LabPokedex-LabPokedexTests/Pods-LabPokedex-LabPokedexTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5DCACB8F33CDC322A6C60F78 /* libPods-LabPokedex.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LabPokedex.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = LabPokedex/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -106,6 +111,18 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		57F154A62A74681E00B043D8 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				57F154AB2A7468B400B043D8 /* FontAwesome.ttf */,
+				57F154A72A74686700B043D8 /* FontAwesome5_Brands.ttf */,
+				57F154AA2A74686800B043D8 /* FontAwesome5_Regular.ttf */,
+				57F154A82A74686700B043D8 /* FontAwesome5_Solid.ttf */,
+				57F154A92A74686700B043D8 /* Ionicons.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
@@ -116,6 +133,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				57F154A62A74681E00B043D8 /* Fonts */,
 				13B07FAE1A68108700A75B9A /* LabPokedex */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* LabPokedexTests */,
