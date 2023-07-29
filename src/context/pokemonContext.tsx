@@ -31,11 +31,16 @@ import React, {
   type PokemonContextType = {
     state: State;
     dispatch: React.Dispatch<Action>;
+    fetchPokemonImage: (pokemon: PokemonDetails) => Promise<string>; 
+    addPokemon: (pokemon: Pokemon) => void;
   };
   
+  
   const PokemonContext = createContext<PokemonContextType>({
-    state: {pokemonList: [], selectedPokemon: null},
+    state: {pokemonList: [], selectedPokemon: null, myPokemons: []},
     dispatch: () => null,
+    fetchPokemonImage: async () => '',
+    addPokemon: () => {},
   });
   
   const pokemonReducer = (state: State, action: Action): State => {

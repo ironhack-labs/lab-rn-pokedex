@@ -8,7 +8,6 @@ type PokemonListProps = {
 };
 
 const PokemonList: React.FC<PokemonListProps> = ({pokemons}) => {
-  console.log(pokemons);
   
   return (
     <FlatList
