@@ -7,7 +7,8 @@ import React, {
   } from 'react';
   
   import useFetch from '../hooks/useFetch';
-  
+  import {Pokemon} from '../types/types';
+
   type Pokemon = {
     name: string;
     id: number;
@@ -77,12 +78,26 @@ import React, {
         dispatch({type: 'SET_POKEMON_LIST', payload: pokemonList});
       }
     }, [data]);
+
+    const  AddPokemon =(pokemon:Pokemon)=>{
+      dispatch({
+        payload:pokemon,
+        type:'ADD_POKEMON'
+      });
+    };
+  
   
     return (
-      <PokemonContext.Provider value={{state, dispatch}}>
+      <PokemonContext.Provider value={{state, dispatch , AddPokemon }}>
         {children}
       </PokemonContext.Provider>
     );
-  };
+
+
   
+  
+};
+
   export const usePokemonContext = () => useContext(PokemonContext);
+
+  
