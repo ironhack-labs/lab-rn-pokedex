@@ -3,27 +3,29 @@ import React from 'react';
 import {SafeAreaView, Text, Image, StyleSheet} from 'react-native';
 import {PokemonT} from '../components/PokemonCard';
 
-type ScreenParams = {
-  information: PokemonT;
+export type PokemonDetailScreenParams = {
+  info: PokemonT;
 };
 
-type ScreenRouteProp = RouteProp<Record<string, ScreenParams>>;
+export type PokemonDetailScreenRouteProp = RouteProp<
+  Record<string, PokemonDetailScreenParams>
+>;
 
 type PropsT = {
-  route: ScreenRouteProp;
+  route: PokemonDetailScreenRouteProp;
 };
 
 export const PokemonDetailScreen = ({route}: PropsT) => {
-  const {information} = route.params;
+  const {info} = route.params;
 
   return (
     <>
       <SafeAreaView style={styles.container}>
-        <Text>{information?.id ?? ''}</Text>
-        <Text style={styles.name}>{information?.name ?? ''}</Text>
+        <Text>{info?.id ?? ''}</Text>
+        <Text style={styles.name}>{info?.name ?? ''}</Text>
         {/* <Image source={require('')} />*/}
-        <Text>{information?.type ?? ''}</Text>
-        <Text>{information?.abilities ?? ''}</Text>
+        <Text>{info?.type ?? ''}</Text>
+        <Text>{info?.abilities ?? ''}</Text>
       </SafeAreaView>
     </>
   );

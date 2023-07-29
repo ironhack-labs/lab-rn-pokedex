@@ -1,5 +1,6 @@
 import {SafeAreaView, StyleSheet, TextInput, Button} from 'react-native';
 import {useForm, Controller} from 'react-hook-form';
+import {usePokedex} from '../context/context';
 
 type DataT = {
   id: string;
@@ -10,10 +11,20 @@ type DataT = {
 };
 
 export const AddPokemonScreen = () => {
+  const {addPokemon} = usePokedex();
   const {control, handleSubmit} = useForm<DataT>();
 
   const onSubmit = (data: DataT) => {
-    console.log(data);
+    const id = Number(data.id);
+    const pokemon = {
+      id,
+      name: data.name,
+      type: data.type,
+      image: data.image,
+      abilities: data.abilities,
+    };
+
+    addPokemon(pokemon);
   };
 
   return (
@@ -23,7 +34,11 @@ export const AddPokemonScreen = () => {
           name="name"
           control={control}
           render={({field: {onChange, value}}) => (
-            <TextInput value={value} onChangeText={onChange} />
+            <TextInput
+              placeholder="Type the name here"
+              value={value}
+              onChangeText={onChange}
+            />
           )}
         />
         <Controller
@@ -34,6 +49,7 @@ export const AddPokemonScreen = () => {
               value={value}
               onChangeText={onChange}
               keyboardType="numeric"
+              placeholder="Type the id here"
             />
           )}
         />
@@ -41,21 +57,33 @@ export const AddPokemonScreen = () => {
           name="image"
           control={control}
           render={({field: {onChange, value}}) => (
-            <TextInput value={value} onChangeText={onChange} />
+            <TextInput
+              placeholder="Place the url here"
+              value={value}
+              onChangeText={onChange}
+            />
           )}
         />
         <Controller
           name="type"
           control={control}
           render={({field: {onChange, value}}) => (
-            <TextInput value={value} onChangeText={onChange} />
+            <TextInput
+              placeholder="Place the type here"
+              value={value}
+              onChangeText={onChange}
+            />
           )}
         />
         <Controller
           name="abilities"
           control={control}
           render={({field: {onChange, value}}) => (
-            <TextInput value={value} onChangeText={onChange} />
+            <TextInput
+              placeholder="Type the abilities here"
+              value={value}
+              onChangeText={onChange}
+            />
           )}
         />
         <Button title="Submit" onPress={handleSubmit(onSubmit)} />
