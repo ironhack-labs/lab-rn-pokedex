@@ -26,6 +26,7 @@ import React, {
     selectedPokemon: Pokemon | null;
   };
   
+  
   type PokemonContextType = {
     state: State;
     dispatch: React.Dispatch<Action>;
