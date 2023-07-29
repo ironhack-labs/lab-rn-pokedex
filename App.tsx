@@ -1,14 +1,17 @@
-import React from 'react'
-import { Text, View } from 'react-native';
-import AppNavigator from './src/navigation/AppNavigator';
+import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
+import { AppContextProvider } from './src/context/AppContext';
+import AppNavigator from './src/navigation/AppNavigator';
+
 
 const App = () => {
-return (
-  <NavigationContainer>
-    <AppNavigator/>
-  </NavigationContainer>
-);
-}
+  return (
+    <NavigationContainer>
+      <AppContextProvider>
+        <AppNavigator />
+      </AppContextProvider>
+    </NavigationContainer>
+  );
+};
 
-export default App
+export default App;
