@@ -1,6 +1,6 @@
 import { View, Text } from 'react-native';
 import React, { PropsWithChildren, createContext, useContext, useReducer } from 'react';
-import { Pokemon } from '../../../hooks/useFetch';
+import { Pokemon } from '../../hooks/useFetch';
 
 type AppContextProps = {
     pokemons: Pokemon[];

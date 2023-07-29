@@ -1,6 +1,6 @@
 import axios, {AxiosInstance} from 'axios';
 import {useEffect} from 'react';
-import {usePokemons} from '../src/hooks/usePokemons';
+import {usePokemons} from './usePokemons';
 
 type RequestItem = {
   name: string;
@@ -28,7 +28,6 @@ type GetResponse = {
 
 const pokemonAxiosInstance: AxiosInstance = axios.create({
   baseURL: 'https://pokeapi.co/api/v2/pokemon',
-  timeout: 1000,
   headers: {'X-Custom-Header': 'foobar', Accept: 'application/json'},
 });
 
@@ -38,7 +37,7 @@ export const useFetch = () => {
     const fetchData = async () => {
       if(pokemons.length){return;};
       try {
-        const {data} = await pokemonAxiosInstance.get<GetResponse>(`?limit=20`);
+        const {data} = await pokemonAxiosInstance.get<GetResponse>(`?limit=151`);
 
         const fetchDetails = async (id: string) => {
           const {data} = await pokemonAxiosInstance.get<ApiPokemon>(`/${id}/`);

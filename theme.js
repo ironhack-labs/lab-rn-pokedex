@@ -8,7 +8,7 @@ const theme = {
       grass: '#62B957',
       grassbg: '#8bbe8a',
       poison: '#A552CC',
-      poisonbg: 'A552CC75',
+      poisonbg: '#9f6e97',
       fire: '#FD7D24',
       firebg: '#fea756',
       flying: '#748fc9',
@@ -25,6 +25,10 @@ const theme = {
       groundbg: '#f78551',
       fairy: '#ED6EC7',
       fairybg: '#eba8c3',
+      figthg: '#cc322a',
+      figthgbg: '#cc322a',
+      rock: '#DD7748',
+      rockbg: '#f78551', 
     },
   };
 
@@ -50,6 +54,10 @@ const theme = {
         return theme.colors.groundbg;
       case 'fairy':
         return theme.colors.fairybg;
+      case 'rock':
+        return theme.colors.rock;
+      case 'fighting':
+        return theme.colors.rock;
       default:
         return theme.colors.background;
     }
@@ -77,6 +85,10 @@ const theme = {
         return theme.colors.ground;
       case 'fairy':
         return theme.colors.fairy;
+      case 'rock':
+        return theme.colors.rockbg;
+      case 'fighting':
+        return theme.colors.rockbg;
       default:
         return theme.colors.background;
     }

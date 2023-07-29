@@ -1,7 +1,7 @@
 import React from 'react';
 import {FlatList, View} from 'react-native';
 import PokemonCard from './PokemonCard';
-import {Pokemon} from '../../hooks/useFetch';
+import {Pokemon} from '../hooks/useFetch';
 import {NavigationState, useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {HomeNavigatorProps} from '../navigation/HomeNavigator';

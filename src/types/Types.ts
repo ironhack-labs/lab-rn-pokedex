@@ -1,4 +1,4 @@
-import { Pokemon } from "../../hooks/useFetch";
+import { Pokemon } from "../hooks/useFetch";
 
 // Propiedades del componente
 export interface PokemonCardProps {

@@ -3,11 +3,11 @@ import {Text} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import HomeNavigator, {HomeNavigatorProps} from './HomeNavigator';
 import AddPokemonScreen from '../screens/AddPokemonScreen';
-import {HomeScreen} from '../../screens/HomeScreen';
+import {HomeScreen} from '../screens/HomeScreen';
 
 export type TabNavigatorProps = {
-  TAB_HOME: HomeNavigatorProps;
-  TAB_ADD_POKEMON: undefined;
+  Inicio: undefined;
+  AddPokemon: undefined;
 };
 
 const Tab = createBottomTabNavigator<TabNavigatorProps>();
@@ -16,12 +16,12 @@ export default function TabNavigator() {
   return (
     <Tab.Navigator>
       <Tab.Screen
-        name="TAB_HOME"
+        name="Inicio"
         options={{headerShown: false, tabBarIcon: () => <Text>1</Text>}}
         component={HomeNavigator}
       />
       <Tab.Screen
-        name="TAB_ADD_POKEMON"
+        name="AddPokemon"
         options={{tabBarIcon: () => <Text>3</Text>}}
         component={AddPokemonScreen}
       />
