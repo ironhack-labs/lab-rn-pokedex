@@ -25,14 +25,22 @@ type State = {
   selectedPokemon: Pokemon | null;
 };
 
+type PokemonDetails = {
+  name: string;
+  id: number;
+  url: string; // URL para obtener los detalles individuales del Pokemon
+};
+
 type PokemonContextType = {
   state: State;
   dispatch: React.Dispatch<Action>;
+  fetchPokemonImage: (pokemon: PokemonDetails) => Promise<string>; // Nueva función para obtener la imagen del Pokemon
 };
 
 const PokemonContext = createContext<PokemonContextType>({
   state: {pokemonList: [], selectedPokemon: null},
   dispatch: () => null,
+  fetchPokemonImage: async () => '',
 });
 
 const pokemonReducer = (state: State, action: Action): State => {
@@ -58,26 +66,45 @@ export const PokemonProvider: React.FC<{children: ReactNode}> = ({
 
   const {data} = useFetch('https://pokeapi.co/api/v2/pokemon?limit=151');
 
+  const fetchPokemonImage = async (
+    pokemon: PokemonDetails,
+  ): Promise<string> => {
+    const response = await fetch(pokemon.url);
+    const data = await response.json();
+    return data.sprites.front_default;
+  };
+
   useEffect(() => {
     if (data) {
       const pokemonList: Pokemon[] = data.results.map(
-        (pokemon: any, index: number) => ({
+        (pokemon: PokemonDetails, index: number) => ({
           name: pokemon.name,
           id: index + 1,
-          image: `https://pokeres.bastionbot.org/images/pokemon/${
-            index + 1
-          }.png`,
           type: '',
           abilities: [],
         }),
       );
 
-      dispatch({type: 'SET_POKEMON_LIST', payload: pokemonList});
+      Promise.all(
+        data.results.map((pokemon: PokemonDetails) =>
+          fetchPokemonImage(pokemon),
+        ),
+      ).then(images => {
+        // Combinar las imágenes con la lista de Pokemon
+        const updatedPokemonList: Pokemon[] = pokemonList.map(
+          (pokemon, index) => ({
+            ...pokemon,
+            image: images[index],
+          }),
+        );
+
+        dispatch({type: 'SET_POKEMON_LIST', payload: updatedPokemonList});
+      });
     }
   }, [data]);
 
   return (
-    <PokemonContext.Provider value={{state, dispatch}}>
+    <PokemonContext.Provider value={{state, dispatch, fetchPokemonImage}}>
       {children}
     </PokemonContext.Provider>
   );
