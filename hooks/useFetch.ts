@@ -1,5 +1,5 @@
 import axios, {AxiosInstance} from 'axios';
-import {useEffect, useState} from 'react';
+import {useEffect} from 'react';
 import {usePokemons} from '../src/hooks/usePokemons';
 
 type RequestItem = {
@@ -14,6 +14,19 @@ export type Pokemon = {
   type: string;
   abilities: string[];
 };
+
+type ApiPokemon = {
+  name: string;
+  types: {type: {name: string}}[];
+  id: number;
+  abilities: {ability: []}[];
+};
+
+name: pok.name,
+type: pok.types[0].type.name,
+id: pok.id.toString(),
+image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pok.id}.png`,
+abilities: pok.abilities.map(ab => ab.ability.name),
 
 type GetResponse = {
   results: RequestItem[];
@@ -43,7 +56,6 @@ export const useFetch = () => {
         });
 
         const pokemons = await Promise.all(ids.map(id => fetchDetails(id)));
-
         const mappedPokemons = pokemons.map(pok => {
           return {
             name: pok.name,
