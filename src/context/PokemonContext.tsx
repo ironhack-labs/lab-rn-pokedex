@@ -29,12 +29,14 @@ type PokemonContextType = {
   state: State;
   dispatch: React.Dispatch<Action>;
   fetchPokemonImage: (pokemon: PokemonDetails) => Promise<string>; // Nueva función para obtener la imagen del Pokemon
+  addPokemon: (pokemon: Pokemon) => void;
 };
 
 const PokemonContext = createContext<PokemonContextType>({
   state: {pokemonList: [], selectedPokemon: null, myPokemons: []},
   dispatch: () => null,
   fetchPokemonImage: async () => '',
+  addPokemon: () => {},
 });
 
 const pokemonReducer = (state: State, action: Action): State => {
@@ -106,7 +108,8 @@ export const PokemonProvider: React.FC<{children: ReactNode}> = ({
   };
 
   return (
-    <PokemonContext.Provider value={{state, dispatch, fetchPokemonImage}}>
+    <PokemonContext.Provider
+      value={{state, dispatch, fetchPokemonImage, addPokemon}}>
       {children}
     </PokemonContext.Provider>
   );
