@@ -1,6 +1,6 @@
 import axios, {AxiosInstance} from 'axios';
-import { useEffect, useState } from 'react';
-import { usePokemons } from '../src/hooks/usePokemons';
+import {useEffect, useState} from 'react';
+import {usePokemons} from '../src/hooks/usePokemons';
 
 type RequestItem = {
   name: string;
@@ -12,7 +12,7 @@ export type Pokemon = {
   id: string;
   image: string;
   type: string;
-  abilities: Object[];
+  abilities: string[];
 };
 
 type GetResponse = {
@@ -25,27 +25,38 @@ const pokemonAxiosInstance: AxiosInstance = axios.create({
   headers: {'X-Custom-Header': 'foobar', Accept: 'application/json'},
 });
 
-export const useFetch: Promise<Pokemon[]> = () => {
+export const useFetch = () => {
   const {addPokemons, pokemons} = usePokemons();
   useEffect(() => {
-    const fetchData =async () => {
+    const fetchData = async () => {
       try {
-        const {data} = await pokemonAxiosInstance.get<GetResponse>(
-          `?limit=151`,
-        );
-    
-        const fetchDetails: Promise<Pokemon> = async (id: string) =>
-          await pokemonAxiosInstance.get<GetResponse>(`/${id}/`);
-    
-        const ids = data?.results.map(async (item: RequestItem) => {
+        const {data} = await pokemonAxiosInstance.get<GetResponse>(`?limit=20`);
+
+        const fetchDetails = async (id: string) => {
+          const {data} = await pokemonAxiosInstance.get<GetResponse>(`/${id}/`);
+          return data;
+        };
+
+        const ids = data?.results.map((item: RequestItem) => {
           const id = item.url.split('/').slice(-2, -1)[0];
           return id;
         });
 
         const pokemons = await Promise.all(ids.map(id => fetchDetails(id)));
-        addPokemons(pokemons);
-//        const pokemon = await fetchDetails(id);
-  //      console.log('poke: ', pokemon.data.name);
+
+        const mappedPokemons = pokemons.map(pok => {
+          return {
+            name: pok.name,
+            type: pok.types[0].type.name,
+            id: pok.id.toString(),
+            image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pok.id}.png`,
+            abilities: pok.abilities.map(ab => ab.ability.name),
+          };
+        });
+
+        addPokemons(mappedPokemons);
+        //        const pokemon = await fetchDetails(id);
+        //      console.log('poke: ', pokemon.data.name);
       } catch (error) {
         if (axios.isAxiosError(error)) {
           console.log('error message: ', error.message);
@@ -54,9 +65,9 @@ export const useFetch: Promise<Pokemon[]> = () => {
           console.log('unexpected error: ', error);
           return 'An unexpected error occurred';
         }
-      } 
-      fetchData();
-    }
-  },[]);
+      }
+    };
+    fetchData();
+  }, []);
   return pokemons;
 };

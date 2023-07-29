@@ -6,14 +6,6 @@ type Props = {};
 
 export const HomeScreen: React.FC<void> = (props: Props) => {
   const pokemons = useFetch();
-  console.log(pokemons);
-  // useEffect(() => {
-  //   async function getPokemons() {
-  //     const data = await useFetch();
-  //   }
-
-  //   getPokemons();
-  // }, []);
 
   return (
     <SafeAreaView style={{flex: 1}}>
