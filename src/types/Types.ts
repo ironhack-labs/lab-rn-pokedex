@@ -1,8 +1,4 @@
-// Interfaz para el Pokémon
-export interface Pokemon {
-  name: string;
-  url: string;
-}
+import { Pokemon } from "../../hooks/useFetch";
 
 // Propiedades del componente
 export interface PokemonCardProps {

@@ -1,18 +1,13 @@
 import { View, Text } from 'react-native';
 import React, { PropsWithChildren, createContext, useContext, useReducer } from 'react';
-
-// TODO use the real pokemon type
-type PokemonType = {
-    name: string;
-    id: number;
-};
+import { Pokemon } from '../../../hooks/useFetch';
 
 type AppContextProps = {
-    pokemons: PokemonType[];
+    pokemons: Pokemon[];
     dispatch: React.Dispatch<AppReducerActions>;  
 };
 
-type AppReducerActions = {type: 'ADD_POKEMONS', payload: PokemonType[]}
+type AppReducerActions = {type: 'ADD_POKEMONS', payload: Pokemon[]}
 
 const appReducer = (state: AppContextProps['pokemons'], action: AppReducerActions) => {
     switch(action.type){

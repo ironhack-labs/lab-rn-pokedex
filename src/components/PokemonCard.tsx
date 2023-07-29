@@ -1,47 +1,38 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
+import theme, {getTypeBackgroundColor, getTypeColor} from '../../theme';
 
 //Types
-import { PokemonCardProps, PokemonFetch, Type } from '../types/Types';
+import {PokemonCardProps, PokemonFetch, Type} from '../types/Types';
 
-const PokemonCard = ({ pokemon, onPress }: PokemonCardProps) => {
-  const [pokemonData, setPokemonData] = useState<PokemonFetch>();
-
-  useEffect(() => {
-    fetchPokemonData();
-  }, []);
-
-  const fetchPokemonData = async () => {
-    try {
-      const response = await fetch(pokemon.url);
-      const data = await response.json();
-      setPokemonData(data);
-    } catch (error) {
-      console.error('Error fetching Pokémon data:', error);
-    }
-  };
-
-  if (!pokemonData) {
-    return null;
-  }
-
-  const pokemonId = pokemon.url.split('/').slice(-2, -1)[0];
-  const pokemonImage = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonId}.png`;
+const PokemonCard = ({pokemon, onPress}: PokemonCardProps) => {
+  const backgroundColorPokemon = getTypeBackgroundColor(pokemon.type);
+  const backgroundTypeColor = getTypeColor(pokemon.type);
 
   return (
-    <TouchableOpacity style={styles.container} onPress={onPress}>
-        <View style={{width: '45%'}}>
-            <Image source={{ uri: pokemonImage }} style={styles.image}  resizeMode='cover'/>
-        </View>
+    <TouchableOpacity
+      style={[styles.containerCard, {backgroundColor: backgroundColorPokemon}]}
+      onPress={onPress}>
+      <View style={{width: '45%'}}>
+        <Image
+          source={{uri: pokemon.image}}
+          style={styles.image}
+          resizeMode="cover"
+        />
+      </View>
       <View style={styles.details}>
-        <Text>#{pokemonId}</Text>
+        <Text style={styles.pokemonId}>#{pokemon.id}</Text>
         <Text style={styles.name}>{pokemon.name}</Text>
         <View style={styles.typesContainer}>
-          {pokemonData.types.map((type: Type, index: number) => (
-            <Text key={index} style={styles.type}>
-              {type.type.name}
-            </Text>
-          ))}
+          <View
+            style={{
+              borderRadius: 100,
+              backgroundColor: backgroundTypeColor,
+              alignItems: 'center',
+              alignContent: 'center',
+            }}>
+            <Text style={styles.type}>{pokemon.type}</Text>
+          </View>
         </View>
       </View>
     </TouchableOpacity>
@@ -49,10 +40,10 @@ const PokemonCard = ({ pokemon, onPress }: PokemonCardProps) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
+  containerCard: {
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 10,
+    padding: 15,
     borderRadius: 15,
     backgroundColor: '#e5e5e5',
     marginBottom: 10,
@@ -67,20 +58,30 @@ const styles = StyleSheet.create({
     marginLeft: 15,
   },
   name: {
-    fontSize: 18,
+    fontSize: 24,
     fontWeight: 'bold',
+    textTransform: 'capitalize',
+    color: theme.colors.whitecolor,
   },
   typesContainer: {
     flexDirection: 'row',
     marginTop: 5,
+    gap: 5,
   },
   type: {
-    paddingHorizontal: 8,
-    paddingVertical: 2,
+    paddingLeft: 10,
+    paddingRight: 4,
+    paddingVertical: 3,
     borderRadius: 6,
     marginRight: 5,
-    backgroundColor: '#c0c0c0',
     color: 'white',
+    fontSize: 12,
+    fontWeight: '500',
+  },
+  pokemonId: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: theme.colors.secondary,
   },
 });
 
