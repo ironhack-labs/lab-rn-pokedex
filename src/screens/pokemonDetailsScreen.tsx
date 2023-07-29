@@ -1,36 +1,25 @@
-import React, {useEffect} from 'react';
+import { RouteProp, useRoute } from '@react-navigation/native';
+import React, { useEffect } from 'react';
 import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
   Image,
+  SafeAreaView,
+  Text
 } from 'react-native';
-import {RouteProp, useRoute} from '@react-navigation/native';
+import { usePokemonContext } from '../context/pokemonContext';
+import useFetch from '../hooks/useFetch';
+import styles from '../styles/styles';
+
 type DetailsList = {
   PokemonDetail: {pokemonName: string};
 };
-import {usePokemonContext} from '../context/pokemonContext';
-import useFetch from '../hooks/useFetch';
-import styles from '../styles/styles';
+
 type PokemonDetailScreenRouteProp = RouteProp<DetailsList, 'PokemonDetail'>;
-type PokemonDetail = {
-  name: string;
-  id: number;
-  image: string;
-  type: string;
-  abilities: string[];
-};
-const pokemonDetailsScreen: React.FC = () => {
+
+const PokemonDetailsScreen: React.FC = () => {
   const route = useRoute<PokemonDetailScreenRouteProp>();
   const {pokemonName} = route.params;
   const {state, dispatch} = usePokemonContext();
-  const {loading, data} = useFetch(
-    `https://pokeapi.co/api/v2/pokemon/${pokemonName}`,
-  );
+  const {data} = useFetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName}`);
   useEffect(() => {
     if (data) {
       const pokemonDetail = {
@@ -46,10 +35,13 @@ const pokemonDetailsScreen: React.FC = () => {
     }
   }, [data]);
   return (
-    <View>
+    <SafeAreaView>
       {state.selectedPokemon ? (
         <>
-          <Image source={{uri: state.selectedPokemon.image}} style={styles.image}    />
+          <Image
+            source={{uri: state.selectedPokemon.image}}
+            style={styles.image}
+          />
           <Text style={styles.text}>Nombre: {state.selectedPokemon.name}</Text>
           <Text style={styles.text}>Numero: #{state.selectedPokemon.id}</Text>
           <Text style={styles.text}>Tipo: {state.selectedPokemon.type}</Text>
@@ -67,16 +59,7 @@ const pokemonDetailsScreen: React.FC = () => {
       ) : (
         <Text>{`No se encuentran detalles del Pokemon ${pokemonName}`}</Text>
       )}
-    </View>
+    </SafeAreaView>
   );
 };
-export default pokemonDetailsScreen;
-
-
-
-
-
-
-
-
-
+export default PokemonDetailsScreen;
