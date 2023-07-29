@@ -1,10 +1,11 @@
 import { useContext } from "react";
 import { AppContext } from "../navigation/context";
+import { Pokemon } from "../../hooks/useFetch";
 
 export const usePokemons = () => {
     const {dispatch, pokemons} = useContext(AppContext);
 
-    const addPokemons = (pokemons: {name: string, id: number}[]) => {
+    const addPokemons = (pokemons: Pokemon[]) => {
         dispatch({type: "ADD_POKEMONS", payload: pokemons});
     };
 

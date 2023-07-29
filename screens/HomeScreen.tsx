@@ -4,7 +4,7 @@ import {Pokemon, useFetch} from '../hooks/useFetch';
 
 type Props = {};
 
-export const HomeScreen: React.FC<void> = (props: Props) => {
+export const HomeScreen = (props: Props) => {
   const pokemons = useFetch();
 
   return (
