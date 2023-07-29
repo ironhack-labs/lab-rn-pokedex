@@ -1,8 +1,8 @@
 import React from 'react';
-import {Button, Text} from 'react-native';
+import {Text} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import HomeNavigator, {HomeNavigatorProps} from './HomeNavigator';
-import {StackNavigationProp} from '@react-navigation/stack';
+import { HomeNavigatorProps } from './HomeNavigator';
+import AddPokemonScreen from '../screens/AddPokemonScreen';
 import {HomeScreen} from '../../screens/HomeScreen';
 
 export type TabNavigatorProps = {
@@ -29,7 +29,7 @@ export default function TabNavigator() {
       <Tab.Screen
         name="TAB_ADD_POKEMON"
         options={{tabBarIcon: () => <Text>3</Text>}}
-        component={() => <Text>Tab add pokemon</Text>}
+        component={AddPokemonScreen}
       />
     </Tab.Navigator>
   );
