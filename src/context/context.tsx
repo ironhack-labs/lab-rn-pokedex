@@ -1,12 +1,20 @@
 import React, {createContext, useContext, useReducer, Dispatch} from 'react';
 
 export type Pokemon = {
+  id: number;
   name: string;
-  url: string;
+  image: string;
+  type: string;
+  abilities: string;
 };
 
 type PokedexState = {
-  Pokemons: Pokemon[];
+  pokemons: Pokemon[];
+  addPokemon: (pokemon: Pokemon) => void;
+};
+
+type AppState = {
+  pokemons: Pokemon[];
 };
 
 type Action =
@@ -14,16 +22,18 @@ type Action =
   | {type: 'REMOVE_POKEMON'; payload: Pokemon}
   | {type: 'ADD_POKEMONS'; payload: Pokemon[]};
 
-const initialState: PokedexState = {
-  Pokemons: [],
+const initialState = {pokemons: []};
+const initialAppValue: PokedexState = {
+  pokemons: [],
+  addPokemon: (pokemon: Pokemon) => {},
 };
 
-const pokedexReducer = (state: PokedexState, action: Action): PokedexState => {
+const pokedexReducer = (state: AppState, action: Action): AppState => {
   switch (action.type) {
-    case 'ADD_POKEMONS':
+    case 'ADD_POKEMON':
       return {
         ...state,
-        Pokemons: action.payload,
+        pokemons: [...state.pokemons, action.payload],
       };
     default:
       break;
@@ -31,21 +41,19 @@ const pokedexReducer = (state: PokedexState, action: Action): PokedexState => {
   return state;
 };
 
-const PokedexContext = createContext<
-  | {
-      state: PokedexState;
-      dispatch: Dispatch<Action>;
-    }
-  | undefined
->(undefined);
+const PokedexContext = createContext<PokedexState>(initialAppValue);
 
 export const PokedexProvider = ({children}: {children: React.ReactNode}) => {
-  const [state, dispatch] = useReducer(pokedexReducer, initialState);
+  const [{pokemons}, dispatch] = useReducer(pokedexReducer, initialState);
+
+  const addPokemon = (pokemon: Pokemon) => {
+    dispatch({type: 'ADD_POKEMON', payload: pokemon});
+  };
+
+  const value = {pokemons, addPokemon};
 
   return (
-    <PokedexContext.Provider value={{state, dispatch}}>
-      {children}
-    </PokedexContext.Provider>
+    <PokedexContext.Provider value={value}>{children}</PokedexContext.Provider>
   );
 };
 
