@@ -42,7 +42,6 @@ const addPokemonScreen: React.FC = () => {
   } = useForm<newPokemon>()
 
   const onSubmit = (pokemon: Pokemon) => {
-    console.log( pokemon);
     
     addPokemon({ ...pokemon, id: Number(pokemon.id + new Date().getDate()) });
     reset();

@@ -100,7 +100,6 @@ import React, {
     }, [data]);
 
     const addPokemon = (pokemon: Pokemon) => {
-      console.log( pokemon);
       dispatch({
         payload: pokemon,
         type: 'ADD_POKEMON',
