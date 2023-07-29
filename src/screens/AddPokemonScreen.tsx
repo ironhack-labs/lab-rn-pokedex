@@ -1,6 +1,10 @@
 import {SafeAreaView, StyleSheet, TextInput, Button} from 'react-native';
 import {useForm, Controller} from 'react-hook-form';
 import {usePokedex} from '../context/context';
+import {useNavigation} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {RootStackParamList} from '../../navigation/AppNavigator';
+import styles from '../styles';
 
 type DataT = {
   id: string;
@@ -13,6 +17,8 @@ type DataT = {
 export const AddPokemonScreen = () => {
   const {addPokemon} = usePokedex();
   const {control, handleSubmit} = useForm<DataT>();
+  const {navigate} =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   const onSubmit = (data: DataT) => {
     const id = Number(data.id);
@@ -25,6 +31,7 @@ export const AddPokemonScreen = () => {
     };
 
     addPokemon(pokemon);
+    navigate('Home');
   };
 
   return (
@@ -91,9 +98,3 @@ export const AddPokemonScreen = () => {
     </>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});

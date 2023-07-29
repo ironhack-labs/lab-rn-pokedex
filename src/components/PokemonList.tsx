@@ -1,18 +1,19 @@
 import {FlatList, StyleSheet} from 'react-native';
-import {DataT} from '../screens/HomeScreen';
 import {PokemonCard} from './PokemonCard';
+import {DataT, Pokemon, usePokedex} from '../context/context';
 
-type PropsT = {
-  data: DataT[];
-};
+export const PokemonList = () => {
+  const {pokemons} = usePokedex();
 
-export const PokemonList = (props: PropsT) => {
-  const renderItem = ({item}: {item: DataT}) => <PokemonCard pokemon={item} />;
+  const renderItem = ({item}: {item: DataT | Pokemon}) => (
+    <PokemonCard pokemon={item} />
+  );
 
   return (
     <FlatList
-      data={props.data}
+      data={pokemons}
       renderItem={renderItem}
+      keyExtractor={(item, index) => `item-${item.name}-${index}`}
       contentContainerStyle={styles.listContainer}
     />
   );
