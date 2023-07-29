@@ -3,18 +3,19 @@ import { SafeAreaView, StatusBar, Text, View } from 'react-native';
 import PokeImg from '../../img/PokeImg';
 import PokemonList from '../components/pokemonList';
 import { usePokemonContext } from '../context/pokemonContext';
-import styles from '../styles/styles';
+import styles from '../styles/Home.Styles';
+import { globalStyles } from '../styles/themes';
 
 const HomeScreen = () => {
   const {state} = usePokemonContext();
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={globalStyles.container}>
       <StatusBar/>
       <View style={styles.pokeball}>
         <PokeImg />
       </View>
-      <Text style={styles.text}>Bienvenido a la pokedex!</Text>
+      <Text style={styles.text}>Pokédex</Text>
       <PokemonList pokemons={state.pokemonList} />
     </SafeAreaView>
   );

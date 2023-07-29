@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import { usePokemonContext } from '../context/pokemonContext';
 import useFetch from '../hooks/useFetch';
-import styles from '../styles/styles';
+import styles from '../styles/Home.Styles';
 
 type DetailsList = {
   PokemonDetail: {pokemonName: string};

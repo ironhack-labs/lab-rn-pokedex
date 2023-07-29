@@ -4,9 +4,11 @@ import theme from './themes';
 export default StyleSheet.create({
   text: {
     color: theme.colors.text,
-    fontSize: 20,
+    fontSize: 32,
+    fontStyle: 'normal',
+    fontWeight: '700',
+    lineHeight: 34,
     marginVertical: 40,
-    textAlign: 'center', // Centramos el texto horizontalmente
   },
   input: {
     width: '100%',
@@ -21,7 +23,6 @@ export default StyleSheet.create({
   },
   listContainer: {
     width: '100%',
-    paddingHorizontal: 20,
   },
   pokeball: {
     position: 'absolute',

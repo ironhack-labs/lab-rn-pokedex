@@ -1,11 +1,6 @@
 import {StyleSheet} from 'react-native';
 
 export const buscar = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingHorizontal: 20,
-    paddingTop: 10,
-  },
   title: {
     fontSize: 20,
     fontWeight: 'bold',
@@ -17,5 +12,6 @@ export const buscar = StyleSheet.create({
     height: 40,
     borderRadius: 8,
     padding: 10,
+    marginVertical: 20,
   },
 });

@@ -1,6 +1,6 @@
 import React from 'react';
 import { FlatList } from 'react-native';
-import styles from '../styles/styles';
+import styles from '../styles/Home.Styles';
 import PokemonCard, { PokemonCardProps } from './pokemonCard';
 
 type PokemonListProps = {

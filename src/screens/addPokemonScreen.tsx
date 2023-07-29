@@ -10,7 +10,7 @@ import {
   } from 'react-native';
      import {useNavigation} from '@react-navigation/native';
     import {usePokemonContext} from '../context/pokemonContext';
-    import styles from '../styles/styles';
+    import styles from '../styles/Home.Styles';
     import { useForm, Controller } from "react-hook-form";
 
     const addPokemonScreen: React.FC = () => {
