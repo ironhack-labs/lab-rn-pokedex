@@ -5,6 +5,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import homeScreen from '../screens/homeScreen';
 import pokemonDetailsScreen from '../screens/pokemonDetailsScreen';
 import addPokemonScreen from '../screens/addPokemonScreen';
+import buscadorScreen from '../screens/buscadorScreen';
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
@@ -35,8 +36,14 @@ const Navigation = () => {
         component={HomeStack}
         options={{headerShown: false}}
       />
+      <Tab.Screen 
+      name="Buscar Pokemon" 
+      component={buscadorScreen} 
+      options={{headerShown: false}}
+      />
+
       <Tab.Screen
-        name="AddPokemon"
+        name="Agregar Pokemon"
         component={addPokemonScreen}
         options={{headerShown: false}}
       />

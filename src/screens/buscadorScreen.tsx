@@ -1,43 +1,42 @@
-import {View, TextInput, Text} from 'react-native';
-import React, {useEffect, useState} from 'react';
-import {buscar} from '../styles/buscar';
-import {useDebounce} from 'usehooks-ts';
-import {Pokemon} from '../types/types';
-import PokemonList from '../components/PokemonList';
-import {usePokemonContext} from '../context/PokemonContext';
+import React, { useEffect, useState, useCallback, useMemo } from 'react';
+import { View, TextInput, Text } from 'react-native';
+import { useDebounce } from 'usehooks-ts';
+import { Pokemon } from '../types/types';
+import PokemonList from '../components/pokemonList';
+import { usePokemonContext } from '../context/pokemonContext';
+import { buscar } from '../styles/buscar';
 
-const BuscadorScreen = () => {
+const buscadorScreen = () => {
+  const { state } = usePokemonContext();
   const [value, setValue] = useState('');
   const debouncedValue = useDebounce<string>(value, 500);
-  const [pokemonFiltered, setPokemonFiltered] = useState<Pokemon[]>([]);
-  const {state} = usePokemonContext();
 
-  const handleChange = (newValue: string) => {
+  const handleChange = useCallback((newValue: string) => {
     setValue(newValue);
-  };
+  }, []);
 
-  useEffect(() => {
-    if (debouncedValue === '') {
-      setPokemonFiltered([]);
-    } else {
-      setPokemonFiltered(
-        state.pokemonList.filter(x =>
-          x.name.toUpperCase().includes(debouncedValue.toUpperCase()),
-        ),
-      );
+  const pokemonFiltered = useMemo(() => {
+    if (!debouncedValue) {
+      return [];
     }
-  }, [debouncedValue, state]);
+    const searchTerm = debouncedValue.toUpperCase();
+    return (
+      state.pokemonList?.filter((x) =>
+        x.name.toUpperCase().includes(searchTerm)
+      ) ?? []
+    );
+  }, [debouncedValue, state.pokemonList]);
 
   return (
     <View style={buscar.container}>
       <TextInput
         style={buscar.searchInput}
-        placeholder="Search pokemon by name"
+        placeholder="Buscar por nombre"
         onChangeText={handleChange}
       />
       <Text style={buscar.title}>{debouncedValue}</Text>
       <PokemonList
-        pokemons={pokemonFiltered.map(x => ({
+        pokemons={pokemonFiltered.map((x) => ({
           id: x.id,
           name: x.name,
           image: x.image,
@@ -47,4 +46,4 @@ const BuscadorScreen = () => {
   );
 };
 
-export default BuscadorScreen;
+export default buscadorScreen;
