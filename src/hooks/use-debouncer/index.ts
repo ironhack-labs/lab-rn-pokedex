@@ -1,0 +1,1 @@
+export {useDebouncerPokemon} from './useDebouncerPokemon';
