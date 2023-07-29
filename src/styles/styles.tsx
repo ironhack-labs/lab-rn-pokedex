@@ -68,8 +68,10 @@ export default StyleSheet.create({
     borderRadius: 10, // Hacemos las esquinas más redondeadas
     resizeMode: 'cover', // Ajustamos la imagen para que cubra todo el espacio sin deformarla
   },
-
-  card: {
-    width: '100%',
+  pokeball: {
+    position: 'absolute',
+    top: -50,
+    left: 100,
+    transform: [{ rotate: '50deg'}]
   },
 });
