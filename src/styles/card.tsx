@@ -3,15 +3,13 @@ import themes from './themes';
 
 export default StyleSheet.create({
   container: {
-    margin: 8,
-    padding: 16,
-    height: 50,
+    marginBottom: 10,
     borderRadius: 10,
     background: '#ffffff',
-    alignItems: 'center',
-    justifyContent: 'center',
     width: "100%",
     backgroundColor: themes.colors.primary,
+    display: "flex",
+    justifyContent: "center",
   },
   image: {
     width: 100,

@@ -2,17 +2,11 @@ import {StyleSheet} from 'react-native';
 import theme from './themes';
 
 export default StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 16,
-    backgroundColor: theme.colors.background,
-  },
+
   text: {
     color: theme.colors.text,
     fontSize: 20,
-    marginBottom: 24, // Aumentamos el espacio entre el texto y otros elementos
+    marginBottom: 20,
     textAlign: 'center', // Centramos el texto horizontalmente
   },
   input: {
@@ -49,15 +43,7 @@ export default StyleSheet.create({
   },
   listContainer: {
     width: '100%',
-  },
-  pokemonItem: {
-    paddingVertical: 12, // Reducimos el espacio vertical entre elementos de la lista
-    borderBottomWidth: 1,
-    borderBottomColor: theme.colors.secondary,
-  },
-  pokemonItemText: {
-    fontSize: 20,
-    color: theme.colors.text,
+    paddingHorizontal: 20,
   },
   image: {
     width: 250, // Aumentamos el tamaño de la imagen
