@@ -1,4 +1,4 @@
-import {SafeAreaView, StyleSheet, TextInput, Button} from 'react-native';
+import {SafeAreaView, TextInput, Button} from 'react-native';
 import {useForm, Controller} from 'react-hook-form';
 import {usePokedex} from '../context/context';
 import {useNavigation} from '@react-navigation/native';
@@ -15,13 +15,13 @@ type DataT = {
 };
 
 export const AddPokemonScreen = () => {
-  const {addPokemon} = usePokedex();
+  const {addCustomPokemon} = usePokedex();
   const {control, handleSubmit} = useForm<DataT>();
   const {navigate} =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
   const onSubmit = (data: DataT) => {
-    const id = Number(data.id);
+    const id = data.id;
     const pokemon = {
       id,
       name: data.name,
@@ -30,7 +30,7 @@ export const AddPokemonScreen = () => {
       abilities: data.abilities,
     };
 
-    addPokemon(pokemon);
+    addCustomPokemon(pokemon);
     navigate('Home');
   };
 

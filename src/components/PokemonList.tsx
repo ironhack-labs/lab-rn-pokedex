@@ -1,27 +1,55 @@
-import {FlatList, StyleSheet} from 'react-native';
+import {SectionList, StyleSheet, Text, View} from 'react-native';
 import {PokemonCard} from './PokemonCard';
-import {DataT, Pokemon, usePokedex} from '../context/context';
+import {CustomPokemonT, DataT, usePokedex} from '../context/context';
+import {CustomPokemonCard} from './CustomPokemonCard';
 
 export const PokemonList = () => {
-  const {pokemons} = usePokedex();
+  const {pokemons, customPokemons} = usePokedex();
 
-  const renderItem = ({item}: {item: DataT | Pokemon}) => (
-    <PokemonCard pokemon={item} />
+  const renderItem = ({item}: {item: CustomPokemonT | DataT}) => (
+    <View style={styles.item}>
+      {'url' in item ? (
+        <PokemonCard pokemon={item} />
+      ) : (
+        <CustomPokemonCard pokemon={item} />
+      )}
+    </View>
   );
 
+  const data: {title: string; data: Array<DataT | CustomPokemonT>}[] = [
+    {
+      title: 'Pokemon API',
+      data: pokemons,
+    },
+  ];
+
+  if (customPokemons.length)
+    data.unshift({
+      title: 'Custom Pokemons',
+      data: customPokemons,
+    });
+
   return (
-    <FlatList
-      data={pokemons}
+    <SectionList
+      sections={data}
       renderItem={renderItem}
-      keyExtractor={(item, index) => `item-${item.name}-${index}`}
       contentContainerStyle={styles.listContainer}
+      keyExtractor={(item, index) => `${item.name}-${index}`}
+      renderSectionHeader={({section: {title}}) => (
+        <Text style={styles.title}>{title}</Text>
+      )}
     />
   );
 };
 
 const styles = StyleSheet.create({
   listContainer: {
-    gap: 10,
     padding: 20,
+  },
+  title: {
+    fontSize: 20,
+  },
+  item: {
+    marginVertical: 8,
   },
 });

@@ -7,39 +7,50 @@ export type DataT = {
   url: string;
 };
 
+export type CustomPokemonT = {
+  id: string;
+  image: string;
+  name: string;
+  type: string;
+  abilities: string;
+};
+
 type PokedexState = {
-  pokemons: Array<DataT | Pokemon>;
-  addPokemon: (pokemon: Pokemon) => void;
+  pokemons: DataT[];
+  customPokemons: CustomPokemonT[];
   addPokemons: (pokemons: DataT[]) => void;
+  addCustomPokemon: (pokemon: CustomPokemonT) => void;
 };
 
 type AppState = {
-  pokemons: Array<DataT | Pokemon>;
+  pokemons: DataT[];
+  customPokemons: CustomPokemonT[];
 };
 
 type Action =
-  | {type: 'ADD_POKEMON'; payload: Pokemon}
   | {type: 'REMOVE_POKEMON'; payload: Pokemon}
-  | {type: 'ADD_POKEMONS'; payload: DataT[]};
+  | {type: 'ADD_POKEMONS'; payload: DataT[]}
+  | {type: 'ADD_CUSTOM_POKEMON'; payload: CustomPokemonT};
 
-const initialState = {pokemons: []};
+const initialState = {pokemons: [], customPokemons: []};
 const initialAppValue: PokedexState = {
   pokemons: [],
-  addPokemon: (pokemon: Pokemon) => {},
+  customPokemons: [],
   addPokemons: (pokemons: DataT[]) => {},
+  addCustomPokemon: (pokemon: CustomPokemonT) => {},
 };
 
 const pokedexReducer = (state: AppState, action: Action): AppState => {
   switch (action.type) {
-    case 'ADD_POKEMON':
-      return {
-        ...state,
-        pokemons: [...state.pokemons, action.payload],
-      };
     case 'ADD_POKEMONS':
       return {
         ...state,
         pokemons: action.payload,
+      };
+    case 'ADD_CUSTOM_POKEMON':
+      return {
+        ...state,
+        customPokemons: [...state.customPokemons, action.payload],
       };
     default:
       break;
@@ -50,18 +61,21 @@ const pokedexReducer = (state: AppState, action: Action): AppState => {
 const PokedexContext = createContext<PokedexState>(initialAppValue);
 
 export const PokedexProvider = ({children}: {children: React.ReactNode}) => {
-  const [{pokemons}, dispatch] = useReducer(pokedexReducer, initialState);
+  const [{pokemons, customPokemons}, dispatch] = useReducer(
+    pokedexReducer,
+    initialState,
+  );
   const {pokemons: pokemonsResult, loading} = useGetPokemons();
 
-  const addPokemon = (pokemon: Pokemon) => {
-    dispatch({type: 'ADD_POKEMON', payload: pokemon});
+  const addCustomPokemon = (pokemon: CustomPokemonT) => {
+    dispatch({type: 'ADD_CUSTOM_POKEMON', payload: pokemon});
   };
 
   const addPokemons = (pokemons: DataT[]) => {
     dispatch({type: 'ADD_POKEMONS', payload: pokemons});
   };
 
-  const value = {pokemons, addPokemon, addPokemons};
+  const value = {pokemons, customPokemons, addCustomPokemon, addPokemons};
 
   useEffect(() => {
     if (!loading && pokemonsResult) {

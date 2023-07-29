@@ -6,12 +6,12 @@ import {
   HomeScreen,
   PokemonDetailScreen,
 } from '../src/screens';
-import {PokemonDetailScreenRouteProp} from '../src/screens/PokemonDetailScreen';
+import {CustomPokemonT} from '../src/context/context';
 
 export type RootStackParamList = {
   Home: undefined;
   AddPokemon: undefined;
-  PokemonDetail: {route: PokemonDetailScreenRouteProp} | undefined;
+  PokemonDetail: {info: CustomPokemonT};
 };
 
 const Stack = createNativeStackNavigator();

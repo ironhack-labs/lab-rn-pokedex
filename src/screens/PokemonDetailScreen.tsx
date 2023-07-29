@@ -1,38 +1,33 @@
 import React from 'react';
 import {RouteProp} from '@react-navigation/native';
 import {SafeAreaView, Text, Image, StyleSheet} from 'react-native';
-import {Pokemon} from '../context/pokemon-type';
+import {RootStackParamList} from '../../navigation/AppNavigator';
+import {CustomPokemonT} from '../context/context';
 
 export type PokemonDetailScreenParams = {
-  info: Pokemon;
+  info: CustomPokemonT;
 };
 
 export type PokemonDetailScreenRouteProp = RouteProp<
-  Record<string, PokemonDetailScreenParams>
+  RootStackParamList,
+  'PokemonDetail'
 >;
 
-type PropsT = {
+export type PokemonDetailScreenPropT = {
   route: PokemonDetailScreenRouteProp;
 };
 
-export const PokemonDetailScreen = ({route}: PropsT) => {
+export const PokemonDetailScreen = ({route}: PokemonDetailScreenPropT) => {
   const {info} = route.params;
-  const types = Array.from(
-    Array.from(info.types).map(type => type.type.name),
-  ).join(',');
-
-  const abilities = Array.from(
-    Array.from(info.abilities).map(ability => ability.ability.name),
-  ).join(',');
 
   return (
     <>
       <SafeAreaView style={styles.container}>
         <Text>{info?.id ?? ''}</Text>
         <Text style={styles.name}>{info?.name ?? ''}</Text>
-        <Image style={styles.img} source={{uri: info?.sprites.front_default}} />
-        <Text>{types}</Text>
-        <Text>{abilities}</Text>
+        <Image style={styles.img} source={{uri: info.image}} />
+        <Text>{info.type}</Text>
+        <Text>{info.abilities}</Text>
       </SafeAreaView>
     </>
   );
