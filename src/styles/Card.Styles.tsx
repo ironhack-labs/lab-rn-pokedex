@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import themes from './Themes';
+import {theme} from './Themes';
 
 export default StyleSheet.create({
   container: {
@@ -7,7 +7,7 @@ export default StyleSheet.create({
     borderRadius: 10,
     height: 100,
     width: '100%',
-    backgroundColor: '#5A92A5',
+    backgroundColor: theme.colors.primary,
     display: 'flex',
     justifyContent: 'center',
     position: 'relative',
@@ -26,6 +26,7 @@ export default StyleSheet.create({
     fontWeight: '700',
     lineHeight: 28,
     color: '#ffffff',
+    textTransform: 'capitalize',
   },
   image: {
     width: 100,

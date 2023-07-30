@@ -10,19 +10,21 @@ const HomeScreen = () => {
   const {state} = usePokemonContext();
 
   return (
-    <SafeAreaView style={globalStyles.container}>
+    <SafeAreaView>
       <StatusBar />
       <View style={styles.pokeball}>
         <PokeImg />
       </View>
       {state.myPokemons?.length > 0 && (
-        <View>
-          <Text style={styles.text}>My pokemons</Text>
+        <View style={globalStyles.container}>
+          <Text style={globalStyles.title}>My pokemons</Text>
           <PokemonList pokemons={state.myPokemons} own={true} />
         </View>
       )}
-      <Text style={styles.text}>Pokédex</Text>
-      <PokemonList pokemons={state.pokemonList} />
+      <View style={globalStyles.container}>
+        <Text style={globalStyles.title}>Pokédex</Text>
+        <PokemonList pokemons={state.pokemonList} />
+      </View>
     </SafeAreaView>
   );
 };

@@ -1,17 +1,23 @@
 import {StyleSheet} from 'react-native';
 
 export default StyleSheet.create({
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginVertical: 10,
+  searchSection: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    backgroundColor: '#e2e2e2',
+    borderRadius: 10,
+    height: 50,
+  },
+  searchIcon: {
+    marginHorizontal: 20,
   },
   searchInput: {
-    width: '100%',
-    backgroundColor: '#e3e4e5',
-    height: 40,
-    borderRadius: 8,
-    padding: 10,
-    marginVertical: 20,
+    paddingTop: 10,
+    paddingRight: 10,
+    paddingBottom: 10,
+    paddingLeft: 0,
+    backgroundColor: '#e2e2e2',
   },
 });

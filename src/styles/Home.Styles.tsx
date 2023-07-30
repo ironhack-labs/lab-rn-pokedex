@@ -1,15 +1,7 @@
-import {StyleSheet} from 'react-native';
-import theme from './Themes';
+import { StyleSheet } from 'react-native';
+import { theme } from './Themes';
 
 export default StyleSheet.create({
-  text: {
-    color: theme.colors.text,
-    fontSize: 32,
-    fontStyle: 'normal',
-    fontWeight: '700',
-    lineHeight: 34,
-    marginVertical: 40,
-  },
   input: {
     width: '100%',
     height: 50, // Aumentamos el tamaño del input

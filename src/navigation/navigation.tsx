@@ -23,7 +23,6 @@ type HomeScreenRouteProps = RouteProp<RootStackParamList, 'Home'>;
 const HomeStack = () => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
   const route = useRoute<HomeScreenRouteProps>();
-  console.log('init', route.params?.init);
 
   useEffect(() => {
     if (route.params?.init)

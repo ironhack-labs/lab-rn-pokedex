@@ -19,6 +19,7 @@ type State = {
   myPokemons: Pokemon[];
   selectedPokemon: Pokemon | null;
 };
+
 type PokemonDetails = {
   name: string;
   id: number;
@@ -63,7 +64,7 @@ export const PokemonProvider: React.FC<{children: ReactNode}> = ({
     selectedPokemon: null,
   });
 
-  const {data} = useFetch('https://pokeapi.co/api/v2/pokemon?limit=1');
+  const {data} = useFetch('https://pokeapi.co/api/v2/pokemon?limit=151');
 
   const fetchPokemonImage = async (
     pokemon: PokemonDetails,
@@ -76,12 +77,11 @@ export const PokemonProvider: React.FC<{children: ReactNode}> = ({
   useEffect(() => {
     if (data) {
       const pokemonList: Pokemon[] = data.results.map(
-        (pokemon: any, index: number) => {
+        (pokemon: any) => {
           const id = pokemon.url.split('/')[pokemon.url.split('/').length - 2];
           return {
             name: pokemon.name,
             id: id,
-            // image: `https://pokeres.bastionbot.org/images/pokemon/${id}.png`,
             image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`,
             type: [],
             abilities: [],

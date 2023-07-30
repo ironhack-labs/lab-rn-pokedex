@@ -24,7 +24,7 @@ const PokemonCard = ({pokemon, own}: PokemonCardProps) => {
   return (
     <TouchableOpacity style={styles.container} onPress={handlePress}>
       <Image width={20} source={{uri: pokemon.image}} style={styles.image} />
-      <Text style={styles.textId}>#{pokemon.id}</Text>
+      <Text style={styles.textId}>#00{pokemon.id}</Text>
       <Text style={styles.textName}>{pokemon.name}</Text>
       <Image
         source={require('../../img/Pokeball.png')}

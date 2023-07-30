@@ -1,17 +1,18 @@
 import {RouteProp, useRoute} from '@react-navigation/native';
 import React, {useEffect} from 'react';
-import {Image, SafeAreaView, Text} from 'react-native';
+import {Image, SafeAreaView, StatusBar, Text, View} from 'react-native';
 import {usePokemonContext} from '../context/PokemonContext';
 import useFetch from '../hooks/UseFetch';
-import styles from '../styles/Home.Styles';
 import {RootStackParamList} from '../navigation/navigation';
+import styles from '../styles/Detail.Styles';
+import {globalStyles, theme} from '../styles/Themes';
 
 type PokemonDetailScreenRouteProp = RouteProp<
   RootStackParamList,
   'PokemonDetail'
 >;
 
-const PokemonDetailsScreen: React.FC = () => {
+const PokemonDetailsScreen = () => {
   const route = useRoute<PokemonDetailScreenRouteProp>();
   const {pokemonName, detail} = route.params;
   const {state, selectPokemon} = usePokemonContext();
@@ -29,31 +30,46 @@ const PokemonDetailsScreen: React.FC = () => {
       };
       selectPokemon(pokemonDetail);
     }
-    if(detail){
+    if (detail) {
       selectPokemon(detail);
     }
   }, [data]);
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{backgroundColor: theme.colors.primary}}>
+      <StatusBar backgroundColor={theme.colors.primary} />
       {state.selectedPokemon ? (
-        <>
-          <Image source={{uri: state.selectedPokemon.image}} />
-          <Text style={styles.text}>Nombre: {state.selectedPokemon.name}</Text>
-          <Text style={styles.text}>Numero: #{state.selectedPokemon.id}</Text>
-          <Text style={styles.text}>Tipo: {state.selectedPokemon.type}</Text>
-          <Text style={styles.text}>Habilidades:</Text>
-          {state.selectedPokemon.abilities.length > 0 ? (
-            state.selectedPokemon.abilities.map(ability => (
-              <Text key={ability} style={styles.text}>
-                {ability}
+        <View style={globalStyles.container}>
+          <View style={styles.information}>
+            <Image
+              style={styles.image}
+              source={{uri: state.selectedPokemon.image}}
+            />
+            <>
+              <Text style={styles.textId}>#00{state.selectedPokemon.id}</Text>
+              <Text style={styles.textName}>{state.selectedPokemon.name}</Text>
+            </>
+          </View>
+          <View style={styles.description}>
+            <Text style={styles.subtitle}>Tipo:</Text>
+            <Text style={globalStyles.text}>{state.selectedPokemon.type}</Text>
+            <Text style={styles.subtitle}>Habilidades:</Text>
+            {state.selectedPokemon.abilities.length > 0 ? (
+              state.selectedPokemon.abilities.map(ability => (
+                <Text key={ability} style={globalStyles.text}>
+                  {ability}
+                </Text>
+              ))
+            ) : (
+              <Text style={globalStyles.text}>
+                No contamos con esa información
               </Text>
-            ))
-          ) : (
-            <Text style={styles.text}>No contamos con esa información</Text>
-          )}
-        </>
+            )}
+          </View>
+        </View>
       ) : (
-        <Text>{`No se encuentran detalles del Pokemon ${pokemonName}`}</Text>
+        <View style={globalStyles.container}>
+          <Text>{`No se encuentran detalles del Pokemon ${pokemonName}`}</Text>
+        </View>
       )}
     </SafeAreaView>
   );
