@@ -1,5 +1,5 @@
-import {DefaultTheme} from '@react-navigation/native';
-import {StyleSheet} from 'react-native';
+import { DefaultTheme } from '@react-navigation/native';
+import { StyleSheet } from 'react-native';
 
 export const theme = {
   ...DefaultTheme,

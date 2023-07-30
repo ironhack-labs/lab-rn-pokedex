@@ -3,17 +3,17 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import React from 'react';
 import {Controller, useForm} from 'react-hook-form';
 import {
-  Button,
+  TouchableOpacity,
   SafeAreaView,
+  ScrollView,
   StatusBar,
   Text,
   TextInput,
-  View,
 } from 'react-native';
 import {usePokemonContext} from '../context/PokemonContext';
 import {RootStackParamList} from '../navigation/navigation';
-import styles from '../styles/Home.Styles';
-import {globalStyles} from '../styles/Themes';
+import styles from '../styles/Add.Styles';
+import {globalStyles, theme} from '../styles/Themes';
 import {Pokemon} from '../types/types';
 
 interface AddPokemon {
@@ -59,7 +59,7 @@ const AddPokemonScreen = () => {
   return (
     <SafeAreaView>
       <StatusBar />
-      <View style={globalStyles.container}>
+      <ScrollView style={globalStyles.container}>
         <Text style={globalStyles.title}>Agrega un nuevo pokémon</Text>
         <Controller
           name="id"
@@ -76,7 +76,6 @@ const AddPokemonScreen = () => {
           )}
         />
         {errors.id && <Text>{errors.id.message}</Text>}
-
         <Controller
           name="name"
           rules={{required: 'Este campo es obligatorio'}}
@@ -92,7 +91,6 @@ const AddPokemonScreen = () => {
           )}
         />
         {errors.name && <Text>{errors.name.message}</Text>}
-
         <Controller
           name="type"
           rules={{required: 'Este campo es obligatorio'}}
@@ -108,7 +106,6 @@ const AddPokemonScreen = () => {
           )}
         />
         {errors.abilities && <Text>{errors.abilities.message}</Text>}
-
         <Controller
           name="abilities"
           rules={{required: 'Este campo es obligatorio'}}
@@ -124,7 +121,6 @@ const AddPokemonScreen = () => {
           )}
         />
         {errors.abilities && <Text>{errors.abilities.message}</Text>}
-
         <Controller
           name="image"
           rules={{required: 'Este campo es obligatorio'}}
@@ -140,9 +136,12 @@ const AddPokemonScreen = () => {
           )}
         />
         {errors.image && <Text>{errors.image.message}</Text>}
-
-        <Button title="Submit" onPress={handleSubmit(onSubmit)} />
-      </View>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={handleSubmit(onSubmit)}>
+          <Text style={styles.buttonText}>Agregar</Text>
+        </TouchableOpacity>
+      </ScrollView>
     </SafeAreaView>
   );
 };

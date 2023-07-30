@@ -1,4 +1,5 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
+import { theme } from './Themes';
 
 export default StyleSheet.create({
   image: {
@@ -13,6 +14,7 @@ export default StyleSheet.create({
     fontWeight: '700',
     lineHeight: 14,
     color: 'rgba(23, 23, 27, 0.60)',
+    textAlign: 'center',
   },
   textName: {
     fontSize: 26,
@@ -21,12 +23,29 @@ export default StyleSheet.create({
     lineHeight: 28,
     color: '#ffffff',
     textTransform: 'capitalize',
+    textAlign: 'center',
+    marginBottom: 40,
   },
   information: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems:"center"
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 20,
   },
-  description: {},
-  subtitle: {},
+  description: {
+    backgroundColor: '#ffffff',
+    height: '100%',
+    borderTopRightRadius: 20,
+    borderTopLeftRadius: 20,
+    display: 'flex',
+    padding: 30,
+  },
+  subtitle: {
+    color: theme.colors.primary,
+    fontSize: 20,
+    fontStyle: 'normal',
+    lineHeight: 26,
+    marginBottom: 10,
+    marginTop: 10,
+  },
 });

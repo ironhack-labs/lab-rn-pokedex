@@ -38,16 +38,16 @@ const PokemonDetailsScreen = () => {
     <SafeAreaView style={{backgroundColor: theme.colors.primary}}>
       <StatusBar backgroundColor={theme.colors.primary} />
       {state.selectedPokemon ? (
-        <View style={globalStyles.container}>
+        <View>
           <View style={styles.information}>
             <Image
               style={styles.image}
               source={{uri: state.selectedPokemon.image}}
             />
-            <>
+            <View>
               <Text style={styles.textId}>#00{state.selectedPokemon.id}</Text>
               <Text style={styles.textName}>{state.selectedPokemon.name}</Text>
-            </>
+            </View>
           </View>
           <View style={styles.description}>
             <Text style={styles.subtitle}>Tipo:</Text>
