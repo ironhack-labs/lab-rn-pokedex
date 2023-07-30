@@ -1,12 +1,12 @@
-import React, {useCallback, useMemo, useState} from 'react';
-import {SafeAreaView, Text, TextInput} from 'react-native';
-import {useDebounce} from 'usehooks-ts';
-import PokemonList from '../components/pokemonList';
-import {usePokemonContext} from '../context/pokemonContext';
-import {buscar} from '../styles/buscar';
-import { globalStyles } from '../styles/themes';
+import React, { useCallback, useMemo, useState } from 'react';
+import { SafeAreaView, Text, TextInput } from 'react-native';
+import { useDebounce } from 'usehooks-ts';
+import PokemonList from '../components/PokemonList';
+import { usePokemonContext } from '../context/PokemonContext';
+import buscar from '../styles/Search.Styles';
+import { globalStyles } from '../styles/Themes';
 
-const buscadorScreen = () => {
+const SearchPokemonScreen = () => {
   const {state} = usePokemonContext();
   const [value, setValue] = useState('');
   const debouncedValue = useDebounce<string>(value, 500);
@@ -46,4 +46,4 @@ const buscadorScreen = () => {
   );
 };
 
-export default buscadorScreen;
+export default SearchPokemonScreen;

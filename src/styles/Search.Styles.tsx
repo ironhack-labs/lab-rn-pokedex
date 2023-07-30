@@ -1,6 +1,6 @@
 import {StyleSheet} from 'react-native';
 
-export const buscar = StyleSheet.create({
+export default StyleSheet.create({
   title: {
     fontSize: 20,
     fontWeight: 'bold',

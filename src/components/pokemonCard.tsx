@@ -1,29 +1,35 @@
 import {useNavigation} from '@react-navigation/native';
+import {StackNavigationProp} from '@react-navigation/stack';
 import React from 'react';
 import {Image, Text, TouchableOpacity} from 'react-native';
-import styles from '../styles/card';
-import {StackNavigationProp} from '@react-navigation/stack';
 import {RootStackParamList} from '../navigation/navigation';
+import styles from '../styles/Card.Styles';
+import {Pokemon} from '../types/types';
 
 export type PokemonCardProps = {
-  name: string;
-  id: number;
-  image: string;
+  pokemon: Pokemon;
+  own?: boolean;
 };
 
-const PokemonCard = ({name, id, image}: PokemonCardProps) => {
+const PokemonCard = ({pokemon, own}: PokemonCardProps) => {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
 
   const handlePress = () => {
-    navigation.navigate('PokemonDetail', {pokemonName: name});
+    navigation.navigate('PokemonDetail', {
+      pokemonName: pokemon.name,
+      detail: own ? pokemon : undefined,
+    });
   };
 
   return (
-    <TouchableOpacity style={styles.container} onPress={handlePress} >
-      <Image width={20} source={{uri: image}} style={styles.image} />
-      <Text style={styles.textId}>#{id}</Text>
-      <Text style={styles.textName}>{name}</Text>
-      <Image source={require("../../img/Pokeball.png")} style={styles.imageBall}/>
+    <TouchableOpacity style={styles.container} onPress={handlePress}>
+      <Image width={20} source={{uri: pokemon.image}} style={styles.image} />
+      <Text style={styles.textId}>#{pokemon.id}</Text>
+      <Text style={styles.textName}>{pokemon.name}</Text>
+      <Image
+        source={require('../../img/Pokeball.png')}
+        style={styles.imageBall}
+      />
     </TouchableOpacity>
   );
 };

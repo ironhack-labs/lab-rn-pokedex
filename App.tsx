@@ -2,9 +2,9 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
 import 'react-native-gesture-handler';
-import { PokemonProvider } from './src/context/pokemonContext';
+import { PokemonProvider } from './src/context/PokemonContext';
 import AppNavigator from './src/navigation/navigation';
-import { theme } from './src/styles/themes';
+import { theme } from './src/styles/Themes';
 
 const Stack = createStackNavigator();
 
