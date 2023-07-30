@@ -1,4 +1,4 @@
-import React, {useCallback, useMemo, useState} from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import {
   Image,
   SafeAreaView,
@@ -7,11 +7,11 @@ import {
   TextInput,
   View,
 } from 'react-native';
-import {useDebounce} from 'usehooks-ts';
+import { useDebounce } from 'usehooks-ts';
 import PokemonList from '../components/PokemonList';
-import {usePokemonContext} from '../context/PokemonContext';
+import { usePokemonContext } from '../context/PokemonContext';
 import styles from '../styles/Search.Styles';
-import {globalStyles} from '../styles/Themes';
+import { globalStyles } from '../styles/Themes';
 
 const SearchPokemonScreen = () => {
   const {state} = usePokemonContext();
@@ -42,7 +42,7 @@ const SearchPokemonScreen = () => {
         <Text style={globalStyles.text}>Busca por nombre</Text>
         <View style={styles.searchSection}>
           <Image
-          style={styles.searchIcon}
+            style={styles.searchIcon}
             source={require('../../img/search.png')}
             width={20}
             alt="icon-search"

@@ -1,17 +1,17 @@
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import {
   StackNavigationProp,
   createStackNavigator,
 } from '@react-navigation/stack';
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
+import { Image } from 'react-native';
 import addPokemonScreen from '../screens/AddPokemonScreen';
 import homeScreen from '../screens/HomeScreen';
 import pokemonDetailsScreen from '../screens/PokemonDetailsScreen';
 import SearchPokemonScreen from '../screens/SearchPokemonScreen';
-import {Pokemon} from '../types/types';
-import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
-import {Image} from 'react-native';
-import {theme} from '../styles/Themes';
+import { theme } from '../styles/Themes';
+import { Pokemon } from '../types/types';
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 

@@ -1,20 +1,20 @@
-import {useNavigation} from '@react-navigation/native';
-import {StackNavigationProp} from '@react-navigation/stack';
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 import React from 'react';
-import {Controller, useForm} from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import {
-  TouchableOpacity,
   SafeAreaView,
   ScrollView,
   StatusBar,
   Text,
   TextInput,
+  TouchableOpacity,
 } from 'react-native';
-import {usePokemonContext} from '../context/PokemonContext';
-import {RootStackParamList} from '../navigation/navigation';
+import { usePokemonContext } from '../context/PokemonContext';
+import { RootStackParamList } from '../navigation/navigation';
 import styles from '../styles/Add.Styles';
-import {globalStyles, theme} from '../styles/Themes';
-import {Pokemon} from '../types/types';
+import { globalStyles } from '../styles/Themes';
+import { Pokemon } from '../types/types';
 
 interface AddPokemon {
   name: string;

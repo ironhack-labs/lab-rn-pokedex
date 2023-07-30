@@ -1,11 +1,11 @@
-import {RouteProp, useRoute} from '@react-navigation/native';
-import React, {useEffect} from 'react';
-import {Image, SafeAreaView, StatusBar, Text, View} from 'react-native';
-import {usePokemonContext} from '../context/PokemonContext';
+import { RouteProp, useRoute } from '@react-navigation/native';
+import React, { useEffect } from 'react';
+import { Image, SafeAreaView, StatusBar, Text, View } from 'react-native';
+import { usePokemonContext } from '../context/PokemonContext';
 import useFetch from '../hooks/UseFetch';
-import {RootStackParamList} from '../navigation/navigation';
+import { RootStackParamList } from '../navigation/navigation';
 import styles from '../styles/Detail.Styles';
-import {globalStyles, theme} from '../styles/Themes';
+import { globalStyles, theme } from '../styles/Themes';
 
 type PokemonDetailScreenRouteProp = RouteProp<
   RootStackParamList,

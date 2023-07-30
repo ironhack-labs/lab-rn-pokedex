@@ -7,7 +7,7 @@ import React, {
 } from 'react';
 
 import useFetch from '../hooks/UseFetch';
-import {Pokemon} from '../types/types';
+import { Pokemon } from '../types/types';
 
 type Action =
   | {type: 'SET_POKEMON_LIST'; payload: Pokemon[]}
