@@ -10,6 +10,8 @@ import pokemonDetailsScreen from '../screens/PokemonDetailsScreen';
 import SearchPokemonScreen from '../screens/SearchPokemonScreen';
 import {Pokemon} from '../types/types';
 import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
+import {Image} from 'react-native';
+import {theme} from '../styles/Themes';
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
@@ -33,17 +35,9 @@ const HomeStack = () => {
   }, [route.params?.init]);
 
   return (
-    <Stack.Navigator>
-      <Stack.Screen
-        name="Home"
-        component={homeScreen}
-        options={{headerShown: false}}
-      />
-      <Stack.Screen
-        name="PokemonDetail"
-        component={pokemonDetailsScreen}
-        options={{headerShown: false}}
-      />
+    <Stack.Navigator screenOptions={{headerShown: false}}>
+      <Stack.Screen name="Home" component={homeScreen} />
+      <Stack.Screen name="PokemonDetail" component={pokemonDetailsScreen} />
     </Stack.Navigator>
   );
 };
@@ -54,18 +48,53 @@ const Navigation = () => {
       <Tab.Screen
         name="Home"
         component={HomeStack}
-        options={{headerShown: false}}
+        options={{
+          tabBarIcon: tab => {
+            return (
+              <Image
+                source={require('../../img/icon-pokeball.png')}
+                width={15}
+                tintColor={
+                  tab.focused ? theme.colors.primary : theme.colors.text
+                }
+              />
+            );
+          },
+        }}
       />
       <Tab.Screen
         name="Buscar Pokemon"
         component={SearchPokemonScreen}
-        options={{headerShown: false}}
+        options={{
+          tabBarIcon: tab => {
+            return (
+              <Image
+                source={require('../../img/icon-pokeball.png')}
+                width={15}
+                tintColor={
+                  tab.focused ? theme.colors.primary : theme.colors.text
+                }
+              />
+            );
+          },
+        }}
       />
-
       <Tab.Screen
         name="Agregar Pokemon"
         component={addPokemonScreen}
-        options={{headerShown: false}}
+        options={{
+          tabBarIcon: tab => {
+            return (
+              <Image
+                source={require('../../img/icon-pokeball.png')}
+                width={15}
+                tintColor={
+                  tab.focused ? theme.colors.primary : theme.colors.text
+                }
+              />
+            );
+          },
+        }}
       />
     </Tab.Navigator>
   );
