@@ -1,18 +1,19 @@
 import React from 'react';
 import { FlatList } from 'react-native';
 import styles from '../styles/Home.Styles';
-import PokemonCard, { PokemonCardProps } from './pokemonCard';
+import { Pokemon } from '../types/types';
+import PokemonCard from './PokemonCard';
 
 type PokemonListProps = {
-  pokemons: PokemonCardProps[];
+  pokemons: Pokemon[];
+  own?: boolean;
 };
 
-const PokemonList: React.FC<PokemonListProps> = ({pokemons}) => {
-  
+const PokemonList = ({pokemons, own}: PokemonListProps) => {
   return (
     <FlatList
       data={pokemons}
-      renderItem={({item}) => <PokemonCard name={item.name} id={item.id} image={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${item.id}.png`}/>}
+      renderItem={({item}) => <PokemonCard own={own} pokemon={item} />}
       keyExtractor={item => String(item.id)}
       style={styles.listContainer}
     />

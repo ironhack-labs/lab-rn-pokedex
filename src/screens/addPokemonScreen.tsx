@@ -1,82 +1,78 @@
-import React, { cloneElement, useState } from 'react';
-import {
-    SafeAreaView,
-    ScrollView,
-    ToastAndroid,
-    Button,
-    Text,
-    TextInput,
-    View,
-  } from 'react-native';
-     import {useNavigation} from '@react-navigation/native';
-    import {usePokemonContext} from '../context/pokemonContext';
-    import styles from '../styles/Home.Styles';
-    import { useForm, Controller } from "react-hook-form";
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import React from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import { Button, Text, TextInput, View } from 'react-native';
+import { usePokemonContext } from '../context/PokemonContext';
+import { RootStackParamList } from '../navigation/navigation';
+import styles from '../styles/Home.Styles';
+import { Pokemon } from '../types/types';
 
-const addPokemonScreen: React.FC = () => {
-  const { navigate } = useNavigation();
+interface AddPokemon {
+  name: string;
+  id: string;
+  image: string;
+  type: string;
+  abilities: string;
+}
 
-  const [pokemonName, setPokemonName] = useState('');
-  const [abilities, setAbilities] = useState('');
-  const navigation = useNavigation();
-  const { state, dispatch } = usePokemonContext();
-  const { addPokemon } = usePokemonContext();
+const AddPokemonScreen: React.FC = () => {
+  const {navigate} = useNavigation<StackNavigationProp<RootStackParamList>>();
 
-  const newPokemon = {
-    name: pokemonName,
-    id: Number,
-    image: '',
-    type: '',
-    abilities: abilities.split(',').map(ability => ability.trim()),
-  };
+  const {addPokemon} = usePokemonContext();
 
   const {
     control,
-    formState: { errors },
+    formState: {errors},
     handleSubmit,
     reset,
-    watch,
-    clearErrors,
-    setValue,
-    getValues,
-  } = useForm<newPokemon>()
+  } = useForm<AddPokemon>();
 
-  const onSubmit = (pokemon: Pokemon) => {
-    
-    addPokemon({ ...pokemon, id: Number(pokemon.id + new Date().getDate()) });
+  const onSubmit = (_pokemon: AddPokemon) => {
+    const pokemon: Pokemon = {
+      abilities: _pokemon.abilities
+        .split(',')
+        .map(
+          ability =>
+            ability.trim().at(0)?.toUpperCase() +
+            ability.trim().substring(1).toLowerCase(),
+        ),
+      id: +_pokemon.id,
+      image: _pokemon.image,
+      name: _pokemon.name,
+      type: [_pokemon.type],
+    };
+
+    addPokemon({...pokemon, id: Number(pokemon.id + new Date().getDate())});
     reset();
-    // navigate('Home');
+    navigate('Home', {init: true});
   };
 
   return (
-
-    <View style={styles.container}>
-
+    <View>
       <Text style={styles.text}>Agrega un nuevo pokemon</Text>
 
       <Controller
         name="id"
-        rules={{ required: 'Este campo es obligatorio' }}
+        rules={{required: 'Este campo es obligatorio'}}
         control={control}
-        render={({ field: { onChange, onBlur, value } }) => (
+        render={({field: {onChange, onBlur, value}}) => (
           <TextInput
             onChangeText={onChange}
             style={styles.input}
             placeholder="Numero de pokemon"
             onBlur={onBlur}
-            value={value}
+            value={`${value || ''}`}
           />
         )}
       />
-      {errors.id && <Text style={styles2.text}>{errors.id.message}</Text>}
-
-
+      {errors.id && <Text>{errors.id.message}</Text>}
 
       <Controller
-        name="Nombre"
-        rules={{ required: 'Este campo es obligatorio' }}
+        name="name"
+        rules={{required: 'Este campo es obligatorio'}}
         control={control}
-        render={({ field: { onChange, onBlur, value } }) => (
+        render={({field: {onChange, onBlur, value}}) => (
           <TextInput
             onChangeText={onChange}
             style={styles.input}
@@ -86,52 +82,59 @@ const addPokemonScreen: React.FC = () => {
           />
         )}
       />
-      {errors.Nombre && <Text style={styles2.text}>{errors.Nombre.message}</Text>}
+      {errors.name && <Text>{errors.name.message}</Text>}
 
       <Controller
         name="type"
-        label="tipos Obligatorio"
-        mode="outlined"
-        rules={{ required: 'Este campo es obligatorio' }}
+        rules={{required: 'Este campo es obligatorio'}}
         control={control}
-        render={({ field: { onChange, onBlur, value } }) => (
+        render={({field: {onChange, onBlur, value}}) => (
           <TextInput
             onChangeText={onChange}
             style={styles.input}
-            placeholder="Lista de Tipo"
+            placeholder="Tipo"
             onBlur={onBlur}
             value={value}
           />
         )}
       />
-      {errors.abilities && <Text style={styles2.text}>{errors.abilities.message}</Text>}
+      {errors.abilities && <Text>{errors.abilities.message}</Text>}
 
       <Controller
         name="abilities"
-        rules={{ required: 'Este campo es obligatorio' }}
+        rules={{required: 'Este campo es obligatorio'}}
         control={control}
-        render={({ field: { onChange, onBlur, value } }) => (
+        render={({field: {onChange, onBlur, value}}) => (
           <TextInput
             onChangeText={onChange}
             style={styles.input}
-            placeholder="lista de habilidades(separa con comas cada una)"
+            placeholder="Habilidades (Separadas por coma)"
             onBlur={onBlur}
-            value={value}
+            value={`${value || ''}`}
           />
         )}
       />
-      {errors.abilities && <Text style={styles2.text}>{errors.abilities.message}</Text>}
+      {errors.abilities && <Text>{errors.abilities.message}</Text>}
+
+      <Controller
+        name="image"
+        rules={{required: 'Este campo es obligatorio'}}
+        control={control}
+        render={({field: {onChange, onBlur, value}}) => (
+          <TextInput
+            onChangeText={onChange}
+            style={styles.input}
+            placeholder="Url imagen"
+            onBlur={onBlur}
+            value={`${value || ''}`}
+          />
+        )}
+      />
+      {errors.image && <Text>{errors.image.message}</Text>}
 
       <Button title="Submit" onPress={handleSubmit(onSubmit)} />
-
     </View>
   );
 };
 
-export default addPokemonScreen;
-
-const styles2 = {
-  errorText: {
-    color: 'red',
-  }
-};
+export default AddPokemonScreen;
