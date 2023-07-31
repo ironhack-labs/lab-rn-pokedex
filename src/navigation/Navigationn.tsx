@@ -6,12 +6,12 @@ import {
 } from '@react-navigation/stack';
 import React, { useEffect } from 'react';
 import { Image } from 'react-native';
-import addPokemonScreen from '../screens/AddPokemonScreen';
-import homeScreen from '../screens/HomeScreen';
-import pokemonDetailsScreen from '../screens/PokemonDetailsScreen';
-import SearchPokemonScreen from '../screens/SearchPokemonScreen';
-import { theme } from '../styles/Themes';
-import { Pokemon } from '../types/types';
+import addPokemonScreen from '../screens/AddPokemonScreenn';
+import homeScreen from '../screens/HomeScreenn';
+import pokemonDetailsScreen from '../screens/PokemonDetailsScreenn';
+import SearchPokemonScreen from '../screens/SearchPokemonScreenn';
+import { theme } from '../styles/Themess';
+import { Pokemon } from '../types/Typess';
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 

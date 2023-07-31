@@ -1,10 +1,10 @@
 import React from 'react';
 import { SafeAreaView, StatusBar, Text, View } from 'react-native';
 import PokeImg from '../../img/PokeImg';
-import PokemonList from '../components/PokemonList';
-import { usePokemonContext } from '../context/PokemonContext';
-import styles from '../styles/Home.Styles';
-import { globalStyles } from '../styles/Themes';
+import PokemonList from '../components/PokemonListt';
+import { usePokemonContext } from '../context/PokemonContextt';
+import styles from '../styles/Home.Styless';
+import { globalStyles } from '../styles/Themess';
 
 const HomeScreen = () => {
   const {state} = usePokemonContext();

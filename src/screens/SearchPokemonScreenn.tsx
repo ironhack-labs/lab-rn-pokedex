@@ -8,10 +8,10 @@ import {
   View,
 } from 'react-native';
 import { useDebounce } from 'usehooks-ts';
-import PokemonList from '../components/PokemonList';
-import { usePokemonContext } from '../context/PokemonContext';
-import styles from '../styles/Search.Styles';
-import { globalStyles } from '../styles/Themes';
+import PokemonList from '../components/PokemonListt';
+import { usePokemonContext } from '../context/PokemonContextt';
+import styles from '../styles/Search.Styless';
+import { globalStyles } from '../styles/Themess';
 
 const SearchPokemonScreen = () => {
   const {state} = usePokemonContext();

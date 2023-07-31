@@ -1,8 +1,8 @@
 import React from 'react';
 import { FlatList } from 'react-native';
-import styles from '../styles/Home.Styles';
-import { Pokemon } from '../types/types';
-import PokemonCard from './PokemonCard';
+import styles from '../styles/Home.Styless';
+import { Pokemon } from '../types/Typess';
+import PokemonCard from './PokemonCardd';
 
 type PokemonListProps = {
   pokemons: Pokemon[];
