@@ -6,8 +6,8 @@ import React, {
   useReducer,
 } from 'react';
 
-import useFetch from '../hooks/UseFetchh';
-import { Pokemon } from '../types/Typess';
+import useFetch from '../hooks/UseFetch';
+import { Pokemon } from '../types/Types';
 
 type Action =
   | {type: 'SET_POKEMON_LIST'; payload: Pokemon[]}

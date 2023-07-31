@@ -2,9 +2,9 @@ import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import React from 'react';
 import { Image, Text, TouchableOpacity } from 'react-native';
-import { RootStackParamList } from '../navigation/Navigationn';
-import styles from '../styles/Card.Styless';
-import { Pokemon } from '../types/Typess';
+import { RootStackParamList } from '../navigation/Navigation';
+import styles from '../styles/Card.Styles';
+import { Pokemon } from '../types/Types';
 
 export type PokemonCardProps = {
   pokemon: Pokemon;

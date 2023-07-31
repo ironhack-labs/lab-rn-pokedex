@@ -10,11 +10,11 @@ import {
   TextInput,
   TouchableOpacity,
 } from 'react-native';
-import { usePokemonContext } from '../context/PokemonContextt';
-import { RootStackParamList } from '../navigation/Navigationn';
-import styles from '../styles/Add.Styless';
-import { globalStyles } from '../styles/Themess';
-import { Pokemon } from '../types/Typess';
+import { usePokemonContext } from '../context/PokemonContext';
+import { RootStackParamList } from '../navigation/Navigation';
+import styles from '../styles/Add.Styles';
+import { globalStyles } from '../styles/Themes';
+import { Pokemon } from '../types/Types';
 
 interface AddPokemon {
   name: string;
