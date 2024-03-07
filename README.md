@@ -140,3 +140,4 @@ This is how the app should look like:
 - Integrate the Bottom Tabs Navigator to create navigation between the `HomeScreen` and `PokemonSearchScreen`.
 
 Happy coding! 💙
+# pokedex
